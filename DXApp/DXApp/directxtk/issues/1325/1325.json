@@ -1,0 +1,39 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "#Problem\r\nIn _Windows 10 Creators Update_, Windows 10 SDK version was updated to 10.0.15063.0, and DirectXTK dealed with it.\r\nHowever, 15063 doesn't contain `d3d10sdklayer.h` . Therefore If you try to build DirectX TK using VS2017, `Cannot open include file` erros appear, and build fails.\r\n\r\n##Steps to reproduce:\r\n1. Download the latest DirectX Tool Kit from [https://github.com/Microsoft/DirectXTK](https://github.com/Microsoft/DirectXTK)\r\n2. Open `DirectXTK_Desktop_2017.sln` with Visual Studio 2017\r\n3. Build it and `c:\\program files (x86)\\windows kits\\10\\include\\10.0.15063.0\\um\\d3d10.h(6773): fatal error C1083: Cannot open include file: 'd3d10sdklayers.h':No such file or directory` appears on output window\r\n\r\n##Other Windows SDK versions\r\nOf course, older Windows SDK version contains `d3d10sdklayer.h`. So I tried to retarget solution to from 14393 to 8.1. But on the all versions failed to build. Here are appeared major erros.\r\n* 14393 - 10240\r\n`c:\\program files (x86)\\windows kits\\10\\include\\10.0.**[here is SDK version]**.0\\winrt\\wrl\\implements.h(1580): error C3861: 'AsIID': identifier not found`\r\n* 8.1\r\n`c:\\program files (x86)\\windows kits\\8.1\\include\\winrt\\wrl\\client.h(129): error C2833: 'operator InterfaceType' is not a recognized operator or type`",
+    "LastUpdatedDate": "2017-04-22T00:25:28.053-07:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Unassigned",
+      "Severity": 0,
+      "Id": 0
+    },
+    "ProjectName": "directxtk",
+    "ReportedDate": "2017-04-22T00:25:28.053-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Cannot build Desktop_2017 using VS2017",
+    "Type": {
+      "Name": "Unassigned",
+      "Id": 5
+    },
+    "VoteCount": 1,
+    "Id": 1325
+  },
+  "FileAttachments": [],
+  "Comments": []
+}

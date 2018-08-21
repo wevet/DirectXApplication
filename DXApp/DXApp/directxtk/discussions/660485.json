@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "1490630",
+    "ThreadId": "660485",
+    "Html": "Hi. Is there a easy way to draw with PrimitiveBatch with texture?\r<br />\n<br />\nI have tried to done this:<br />\n<pre><code>std::unique_ptr&lt;DirectX::PrimitiveBatch&lt;DirectX::VertexPositionColorTexture&gt;&gt;  m_batch;</code></pre>\n\nAnd trying to modify End() method and copied some code from SpriteBatch:<br />\n<pre><code>ID3D11ShaderResourceView* currentTexture(m_nullTexture.Get());\nm_batch-&gt;End(currentTexture);</code></pre>\n\nBut I dont know how to assign the texture, it just flickering when i trying to render PrimitiveBatch with different textures and so on. Anyone how know how I can do? :)<br />\n",
+    "PostedDate": "2017-01-04T14:08:39.487-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1490859",
+    "ThreadId": "660485",
+    "Html": "PrimitiveBatch only manages a subset of state as noted on the <a href=\"https://github.com/Microsoft/DirectXTK/wiki/PrimitiveBatch#state-management\" rel=\"nofollow\">wiki</a>.<br />\n<br />\nYou can easily extend the <a href=\"[http://www.example.com](https://github.com/Microsoft/DirectXTK/wiki/Simple-rendering)\" rel=\"nofollow\">basic drawing tutorial</a> since it uses BasicEffect by using SetTexture on the BasicEffect before you call Apply. You will also need to set a sampler in slot 0. See <a href=\"https://github.com/Microsoft/DirectXTK/wiki/BasicEffect\" rel=\"nofollow\">BasicEffect </a>for more details.<br />\n<br />\nSomething like:<br />\n<br />\nDuring setup of BasicEffect, you need to make sure it selects the textured shader...<br />\n<pre><code>m_effect = std::make_unique&lt;BasicEffect&gt;(m_d3dDevice.Get());\nm_effect-&gt;SetVertexColorEnabled(true);\nm_effect-&gt;SetTextureEnabled(true);\n\nvoid const* shaderByteCode;\nsize_t byteCodeLength;\n\nm_effect-&gt;GetVertexShaderBytecode(&amp;shaderByteCode, &amp;byteCodeLength);\n\nDX::ThrowIfFailed(\n        m_d3dDevice-&gt;CreateInputLayout(VertexPositionColorTexture::InputElements,\n            VertexPositionColorTexture::InputElementCount,\n            shaderByteCode, byteCodeLength,\n            m_inputLayout.ReleaseAndGetAddressOf()));\n</code></pre>\n\nDuring drawing with textures, you need a sampler<br />\n<pre><code>m_d3dContext-&gt;OMSetBlendState( m_states-&gt;Opaque(), nullptr, 0xFFFFFFFF );\nm_d3dContext-&gt;OMSetDepthStencilState( m_states-&gt;DepthNone(), 0 );\nm_d3dContext-&gt;RSSetState( m_states-&gt;CullNone() );\n\nID3D11SamplerState* samplers[] = { states-&gt;LinearWrap() };\nm_d3dContextcontext-&gt;PSSetSamplers(0, 1, samplers);\n\n// This sets the texture object to use\nm_effect-&gt;SetTexture(m_myTexture.Get());\nm_effect-&gt;Apply(m_d3dContext.Get());\n\nm_d3dContext-&gt;IASetInputLayout(m_inputLayout.Get());\n\nm_batch-&gt;Begin();\n\nVertexPositionColorTexture v1(Vector3(0.f, 0.5f, 0.5f), Colors::White, Vector2(0,0));\nVertexPositionColorTexture v2(Vector3(0.5f, -0.5f, 0.5f), Colors::White, Vector2(0,1));\nVertexPositionColorTexture v3(Vector3(-0.5f, -0.5f, 0.5f), Colors::White, Vector2(1,0));\n\nm_batch-&gt;DrawTriangle(v1, v2, v3);\n\nm_batch-&gt;End();\n</code></pre>\n\n",
+    "PostedDate": "2017-01-09T09:47:07.833-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

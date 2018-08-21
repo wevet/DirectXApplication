@@ -1,0 +1,872 @@
+[
+  {
+    "Id": "360059",
+    "Title": "Visual Studio 2010 and Platform Toolset \"v100-sdk80\"",
+    "LatestDate": "2012-12-14T15:14:43.627-08:00"
+  },
+  {
+    "Id": "360555",
+    "Title": "Sample project",
+    "LatestDate": "2012-07-05T14:21:01.57-07:00"
+  },
+  {
+    "Id": "360849",
+    "Title": "spritefont causing problems",
+    "LatestDate": "2012-07-04T06:42:44.5-07:00"
+  },
+  {
+    "Id": "362109",
+    "Title": "RenderTargetView",
+    "LatestDate": "2012-07-05T08:44:20.11-07:00"
+  },
+  {
+    "Id": "373614",
+    "Title": "What about Mesh/Model support?",
+    "LatestDate": "2013-09-24T06:53:01.32-07:00"
+  },
+  {
+    "Id": "390346",
+    "Title": "Basic Win32 game using SpriteBatch",
+    "LatestDate": "2012-09-21T23:19:33.543-07:00"
+  },
+  {
+    "Id": "390363",
+    "Title": "Problem with multiple render targets (SOLVED)",
+    "LatestDate": "2012-08-06T04:55:02.05-07:00"
+  },
+  {
+    "Id": "390482",
+    "Title": "FXMVECTOR and color",
+    "LatestDate": "2012-08-07T08:53:15.437-07:00"
+  },
+  {
+    "Id": "391876",
+    "Title": "SpriteBatch Performance",
+    "LatestDate": "2012-08-30T13:48:46.1-07:00"
+  },
+  {
+    "Id": "392672",
+    "Title": "problem with drawing textures on a netbook (GMA 3150, DirectX 9c, Shader 3)",
+    "LatestDate": "2012-09-06T16:53:08.937-07:00"
+  },
+  {
+    "Id": "393722",
+    "Title": "Windows Phone port",
+    "LatestDate": "2012-10-30T17:33:28.733-07:00"
+  },
+  {
+    "Id": "397987",
+    "Title": "Is it possible to upload file to SkyDrive from Metro Style App?",
+    "LatestDate": "2012-10-04T03:28:08.533-07:00"
+  },
+  {
+    "Id": "401039",
+    "Title": "Query about making a teapot appear - (resolved)",
+    "LatestDate": "2012-10-28T08:44:06.953-07:00"
+  },
+  {
+    "Id": "402044",
+    "Title": "Mipmap problems with CreateDDSTextureFromFile (solved)",
+    "LatestDate": "2012-11-06T12:08:01.043-08:00"
+  },
+  {
+    "Id": "402169",
+    "Title": "IWICStream::InitializeFromFilename returns E_ACCESSDENIED",
+    "LatestDate": "2012-11-07T16:18:25.903-08:00"
+  },
+  {
+    "Id": "404300",
+    "Title": "unresolved external symbol _WKPDID_D3DDebugObjectName",
+    "LatestDate": "2012-11-23T16:25:25.22-08:00"
+  },
+  {
+    "Id": "404422",
+    "Title": "Geometric Primitive face order for RH coordinate system?",
+    "LatestDate": "2013-01-25T16:35:23.73-08:00"
+  },
+  {
+    "Id": "405099",
+    "Title": "D3D11 WARNING: ID3D11Texture2D::SetPrivateData",
+    "LatestDate": "2012-11-30T12:28:40.477-08:00"
+  },
+  {
+    "Id": "406200",
+    "Title": "SpriteBatch Patch 13362",
+    "LatestDate": "2012-12-11T18:27:35.567-08:00"
+  },
+  {
+    "Id": "407257",
+    "Title": "PrimitiveBatch max vertex size?",
+    "LatestDate": "2012-12-19T13:21:14.69-08:00"
+  },
+  {
+    "Id": "427804",
+    "Title": "SetCustomShaders leads memory leak on WP8 ?",
+    "LatestDate": "2013-02-18T08:27:11.313-08:00"
+  },
+  {
+    "Id": "427824",
+    "Title": "Retrieve texture dimensions from SpriteBatch ?",
+    "LatestDate": "2013-01-07T15:04:08.947-08:00"
+  },
+  {
+    "Id": "428824",
+    "Title": "Why does SpriteFont::DrawString always pass stencil test",
+    "LatestDate": "2013-01-09T17:28:39.357-08:00"
+  },
+  {
+    "Id": "428904",
+    "Title": "DirectXTK and Windows 8",
+    "LatestDate": "2013-01-21T12:53:50.667-08:00"
+  },
+  {
+    "Id": "433211",
+    "Title": "PrimitiveBatch EXECUTION WARNING #359: DEVICE_DRAW_INDEX_BUFFER_TOO_SMALL",
+    "LatestDate": "2013-02-19T11:19:14.96-08:00"
+  },
+  {
+    "Id": "433226",
+    "Title": "Using GeometricPrimitive with BasicEffect?",
+    "LatestDate": "2013-02-15T22:37:58.503-08:00"
+  },
+  {
+    "Id": "434046",
+    "Title": "CreateDDSTextureFromFile crashes on setprivatedata",
+    "LatestDate": "2013-02-23T22:31:04.667-08:00"
+  },
+  {
+    "Id": "434859",
+    "Title": "How to link",
+    "LatestDate": "2013-02-28T14:39:28.9-08:00"
+  },
+  {
+    "Id": "435452",
+    "Title": "CMO texture path problem",
+    "LatestDate": "2013-03-06T11:36:09.403-08:00"
+  },
+  {
+    "Id": "435813",
+    "Title": "WINCODEC_ERR_COMPONENTNOTFOUND  ",
+    "LatestDate": "2013-03-08T10:04:52.35-08:00"
+  },
+  {
+    "Id": "436046",
+    "Title": "Custom shaders on WP8",
+    "LatestDate": "2013-03-11T11:30:37.953-07:00"
+  },
+  {
+    "Id": "436155",
+    "Title": "cant render to texture using DirectXTK in windows phone 8",
+    "LatestDate": "2013-03-12T00:36:45.54-07:00"
+  },
+  {
+    "Id": "436641",
+    "Title": "draw filled shapes in DirectXTK",
+    "LatestDate": "2013-03-18T08:31:24.597-07:00"
+  },
+  {
+    "Id": "436738",
+    "Title": "puzzled about LinearClamp of SpriteBatch",
+    "LatestDate": "2013-03-17T19:32:07.053-07:00"
+  },
+  {
+    "Id": "436917",
+    "Title": "creating component library to draw texts using DirectXTK on Windows Phone 8 ",
+    "LatestDate": "2013-03-31T04:53:32.243-07:00"
+  },
+  {
+    "Id": "437582",
+    "Title": "who set the  w_component value of sv_position vector4 ?",
+    "LatestDate": "2013-03-23T05:56:05.527-07:00"
+  },
+  {
+    "Id": "437902",
+    "Title": "DXGI_ format name for DXT1 and DXT4 image formats?",
+    "LatestDate": "2013-03-26T13:38:18.43-07:00"
+  },
+  {
+    "Id": "437964",
+    "Title": "Some memory problem on windows phone 8 ",
+    "LatestDate": "2013-03-27T22:17:28.19-07:00"
+  },
+  {
+    "Id": "438293",
+    "Title": "change line width in primitive batch",
+    "LatestDate": "2013-03-28T09:12:30.317-07:00"
+  },
+  {
+    "Id": "438506",
+    "Title": "SpriteBatch and 3D meshes",
+    "LatestDate": "2013-03-30T02:36:50.567-07:00"
+  },
+  {
+    "Id": "439452",
+    "Title": "Memory problem of the directx tool kit sample \"Direct3D with XAML Marble Maze\"",
+    "LatestDate": "2013-04-07T20:41:17.523-07:00"
+  },
+  {
+    "Id": "439494",
+    "Title": "how to select font weight  on MakeSpriteFont tool",
+    "LatestDate": "2013-04-09T00:40:15.19-07:00"
+  },
+  {
+    "Id": "439643",
+    "Title": "is SpriteFont::DrawString  dependes on render target size",
+    "LatestDate": "2013-04-16T07:23:36.32-07:00"
+  },
+  {
+    "Id": "440177",
+    "Title": "Building failing for Windows Phone XAML + Direct3D project",
+    "LatestDate": "2013-04-13T23:01:26.78-07:00"
+  },
+  {
+    "Id": "441275",
+    "Title": "[Request] implement cone as geometry primitive",
+    "LatestDate": "2013-05-30T14:47:03.243-07:00"
+  },
+  {
+    "Id": "441354",
+    "Title": "[Request] Sample with Sprite Rotation About Sprite's Own Center",
+    "LatestDate": "2013-04-24T07:38:18.417-07:00"
+  },
+  {
+    "Id": "443363",
+    "Title": "Where to start",
+    "LatestDate": "2013-05-13T23:55:56.507-07:00"
+  },
+  {
+    "Id": "443627",
+    "Title": "Batching textured quads using BasicEffect and PrimitiveBatch",
+    "LatestDate": "2013-05-14T22:55:35.91-07:00"
+  },
+  {
+    "Id": "443692",
+    "Title": "AccessViolationException while creating SpriteBatch",
+    "LatestDate": "2013-05-16T23:12:07.773-07:00"
+  },
+  {
+    "Id": "444880",
+    "Title": "Create dynamic texture on SpriteBatch in WP8.",
+    "LatestDate": "2013-05-24T15:51:19.287-07:00"
+  },
+  {
+    "Id": "445533",
+    "Title": "NoPremultiply on SpriteFont",
+    "LatestDate": "2013-07-11T20:03:53.973-07:00"
+  },
+  {
+    "Id": "445925",
+    "Title": "How to set a custom shader in DirectXTK?",
+    "LatestDate": "2013-06-04T20:00:13.293-07:00"
+  },
+  {
+    "Id": "447575",
+    "Title": "DTK Static Linking then Redistribution",
+    "LatestDate": "2013-07-04T11:23:15.9-07:00"
+  },
+  {
+    "Id": "449647",
+    "Title": "Convert a grayscale png file to BC3_UNORM_SRGB",
+    "LatestDate": "2013-07-17T13:06:16.847-07:00"
+  },
+  {
+    "Id": "449753",
+    "Title": "Rendering to multiple viewports",
+    "LatestDate": "2013-07-12T16:13:06.967-07:00"
+  },
+  {
+    "Id": "450969",
+    "Title": "Textures appear darker now",
+    "LatestDate": "2013-07-23T17:13:00.347-07:00"
+  },
+  {
+    "Id": "452856",
+    "Title": "Windows phone 8 Platform::COMException ",
+    "LatestDate": "2013-08-13T10:33:03.987-07:00"
+  },
+  {
+    "Id": "453007",
+    "Title": "Animations from CMO?",
+    "LatestDate": "2013-08-13T11:18:04.817-07:00"
+  },
+  {
+    "Id": "455127",
+    "Title": "MakeSpriteFont - Blurry small fonts, Suggestion/Request",
+    "LatestDate": "2013-09-04T20:25:42.827-07:00"
+  },
+  {
+    "Id": "456486",
+    "Title": "SaveDDSTextureToFile in a windows store app",
+    "LatestDate": "2013-09-11T09:46:59.22-07:00"
+  },
+  {
+    "Id": "459101",
+    "Title": "How would I delete a texture created with CreateDDSTextureFromFile?",
+    "LatestDate": "2013-09-25T12:02:36.233-07:00"
+  },
+  {
+    "Id": "459391",
+    "Title": "SpriteBatch.Begin()",
+    "LatestDate": "2013-09-30T11:10:02.44-07:00"
+  },
+  {
+    "Id": "462018",
+    "Title": "Reusing texture resources in WP8",
+    "LatestDate": "2014-05-21T22:25:14.497-07:00"
+  },
+  {
+    "Id": "465349",
+    "Title": "Running the SDK on Win8 (NOT 8.1)",
+    "LatestDate": "2013-11-04T22:40:35.247-08:00"
+  },
+  {
+    "Id": "465386",
+    "Title": "SpriteBatch.End() giving errors due to invalid parameters?",
+    "LatestDate": "2013-11-08T02:04:33.97-08:00"
+  },
+  {
+    "Id": "468311",
+    "Title": "Loading CMO exception",
+    "LatestDate": "2013-11-13T17:10:17.577-08:00"
+  },
+  {
+    "Id": "468431",
+    "Title": "Skinning problem",
+    "LatestDate": "2013-11-14T06:20:28.173-08:00"
+  },
+  {
+    "Id": "468470",
+    "Title": "[REQUEST] Basic Game Loop",
+    "LatestDate": "2013-11-13T10:57:21.407-08:00"
+  },
+  {
+    "Id": "470634",
+    "Title": "Retiring VS 2010 SP 1 + Windows 8.0 SDK support",
+    "LatestDate": "2013-11-20T13:36:00.857-08:00"
+  },
+  {
+    "Id": "470643",
+    "Title": "Retiring Windows Store apps for Windows 8.0 support",
+    "LatestDate": "2014-11-15T17:44:42.857-08:00"
+  },
+  {
+    "Id": "471423",
+    "Title": "SpriteBatch/SpriteFont drawing in 3D",
+    "LatestDate": "2014-02-01T16:03:47.463-08:00"
+  },
+  {
+    "Id": "471681",
+    "Title": "WP8",
+    "LatestDate": "2013-12-02T14:19:30.747-08:00"
+  },
+  {
+    "Id": "471687",
+    "Title": "SpriteFont - using variables in the string",
+    "LatestDate": "2013-12-02T14:16:13.577-08:00"
+  },
+  {
+    "Id": "471737",
+    "Title": "Adding .spritefont files",
+    "LatestDate": "2014-04-18T14:01:09.257-07:00"
+  },
+  {
+    "Id": "471790",
+    "Title": "Rotating PrimitiveBatch",
+    "LatestDate": "2013-12-03T10:38:47.883-08:00"
+  },
+  {
+    "Id": "474320",
+    "Title": "Skinning and CMO files converted from Daz3D Genesis",
+    "LatestDate": "2013-12-23T23:07:26.137-08:00"
+  },
+  {
+    "Id": "474475",
+    "Title": "DGSL effect texture bug",
+    "LatestDate": "2013-12-18T08:55:25.61-08:00"
+  },
+  {
+    "Id": "476767",
+    "Title": "CMO vertex count much higher than FBX",
+    "LatestDate": "2013-12-21T02:04:37.84-08:00"
+  },
+  {
+    "Id": "476805",
+    "Title": "Unresolved External Symbol for Draw calls",
+    "LatestDate": "2013-12-21T22:39:09.517-08:00"
+  },
+  {
+    "Id": "477010",
+    "Title": "VS 2013 keeps rebuilding FBX files ",
+    "LatestDate": "2013-12-24T07:48:05.27-08:00"
+  },
+  {
+    "Id": "479034",
+    "Title": "NUGET Package",
+    "LatestDate": "2013-12-30T14:29:57.627-08:00"
+  },
+  {
+    "Id": "479114",
+    "Title": "Best Approach For ...",
+    "LatestDate": "2014-01-04T10:58:42.877-08:00"
+  },
+  {
+    "Id": "479115",
+    "Title": "Content Loader",
+    "LatestDate": "2013-12-30T17:37:16.52-08:00"
+  },
+  {
+    "Id": "479123",
+    "Title": "Fragmentation",
+    "LatestDate": "2013-12-30T17:26:02.38-08:00"
+  },
+  {
+    "Id": "481441",
+    "Title": "CMO vs XNB vs FBX File Sizes",
+    "LatestDate": "2015-11-05T18:30:21.973-08:00"
+  },
+  {
+    "Id": "483757",
+    "Title": "Windows 8 App Local Storage + DirectXTK",
+    "LatestDate": "2014-01-05T11:19:39.217-08:00"
+  },
+  {
+    "Id": "483759",
+    "Title": "How are you using DirectX Tool Kit?",
+    "LatestDate": "2014-01-05T10:27:02.763-08:00"
+  },
+  {
+    "Id": "498340",
+    "Title": "Drawing sprites using a blend factor.",
+    "LatestDate": "2014-01-14T23:49:13.35-08:00"
+  },
+  {
+    "Id": "507811",
+    "Title": "Quick question about colors",
+    "LatestDate": "2014-01-20T09:09:25.227-08:00"
+  },
+  {
+    "Id": "508981",
+    "Title": "PCF",
+    "LatestDate": "2014-01-20T09:12:42.427-08:00"
+  },
+  {
+    "Id": "525147",
+    "Title": "SpriteBatch and Orientation",
+    "LatestDate": "2014-01-24T14:29:33.317-08:00"
+  },
+  {
+    "Id": "526298",
+    "Title": "CreateDDSTextureFromFile crash",
+    "LatestDate": "2014-01-26T11:53:09.487-08:00"
+  },
+  {
+    "Id": "531388",
+    "Title": "Beware: 3ds max fbx exporter could change the coordinates system",
+    "LatestDate": "2014-02-11T13:28:05.063-08:00"
+  },
+  {
+    "Id": "531677",
+    "Title": "CMO model problem",
+    "LatestDate": "2014-03-19T05:31:53.373-07:00"
+  },
+  {
+    "Id": "532542",
+    "Title": "Scrolling Screen relative to player position",
+    "LatestDate": "2014-02-18T12:35:43.627-08:00"
+  },
+  {
+    "Id": "534835",
+    "Title": "App crash (CreateWICTextureFromFile + VLD)",
+    "LatestDate": "2014-02-26T02:13:58.377-08:00"
+  },
+  {
+    "Id": "538803",
+    "Title": "VS2013 FBX to CMO conversion",
+    "LatestDate": "2015-03-19T05:03:54.733-07:00"
+  },
+  {
+    "Id": "538923",
+    "Title": "Can CMO animations be merged",
+    "LatestDate": "2014-03-13T15:12:29.443-07:00"
+  },
+  {
+    "Id": "539018",
+    "Title": "EnvironmentMapEffect not working",
+    "LatestDate": "2014-03-14T11:50:37.393-07:00"
+  },
+  {
+    "Id": "539860",
+    "Title": "[WP8] How to correctly render a sprite in a png texture?",
+    "LatestDate": "2014-03-23T09:10:42.787-07:00"
+  },
+  {
+    "Id": "542205",
+    "Title": "Colorkey analogue using DirectXTK",
+    "LatestDate": "2014-04-15T06:08:26.76-07:00"
+  },
+  {
+    "Id": "544592",
+    "Title": "SpriteBatch loses a texture",
+    "LatestDate": "2014-05-07T10:36:57.007-07:00"
+  },
+  {
+    "Id": "544941",
+    "Title": "Creating a WaveBank",
+    "LatestDate": "2014-05-11T18:49:55.94-07:00"
+  },
+  {
+    "Id": "545505",
+    "Title": "DirectXTK Unresolved Externals using Default App. SDKMesh",
+    "LatestDate": "2014-05-25T10:25:51.31-07:00"
+  },
+  {
+    "Id": "546253",
+    "Title": "Text formatting with SpriteFont",
+    "LatestDate": "2014-05-24T15:07:33.007-07:00"
+  },
+  {
+    "Id": "546943",
+    "Title": "Error C2061 : How to solve this error?",
+    "LatestDate": "2014-05-29T12:03:11.257-07:00"
+  },
+  {
+    "Id": "547208",
+    "Title": "XAudio2: SourceChannels doesn't match source voice format",
+    "LatestDate": "2014-06-03T12:18:55.383-07:00"
+  },
+  {
+    "Id": "550561",
+    "Title": "Licenses difference: Codeplex download and NuGet package",
+    "LatestDate": "2014-08-28T00:38:49.847-07:00"
+  },
+  {
+    "Id": "554005",
+    "Title": "Implementing picking of DirectX::Models of DirectXTK",
+    "LatestDate": "2014-07-27T08:55:10.96-07:00"
+  },
+  {
+    "Id": "564405",
+    "Title": "Performance Implications DGSLEffect/BasicEffect",
+    "LatestDate": "2014-08-31T10:18:42.867-07:00"
+  },
+  {
+    "Id": "564407",
+    "Title": "IEffectLights",
+    "LatestDate": "2014-08-31T11:35:58.473-07:00"
+  },
+  {
+    "Id": "568610",
+    "Title": "unresolved external symbol \"long __cdecl DirectX::CreateDDSTextureFromFile",
+    "LatestDate": "2014-09-30T10:38:07.147-07:00"
+  },
+  {
+    "Id": "569134",
+    "Title": "Question About Sprite Rendering",
+    "LatestDate": "2014-10-26T10:28:28.607-07:00"
+  },
+  {
+    "Id": "569149",
+    "Title": "For use with C#",
+    "LatestDate": "2014-10-06T12:12:40.107-07:00"
+  },
+  {
+    "Id": "569175",
+    "Title": "unresolved external symbol \"long __cdecl DirectX::CreateWICTextureFromFile(struct ID3D11Device *,struct ID3D11DeviceContext *,wchar_t const *,struct ID3D11Resource * *,struct ID3D11ShaderResourceView * *,unsigned int)",
+    "LatestDate": "2015-02-09T00:00:01.813-08:00"
+  },
+  {
+    "Id": "569949",
+    "Title": "NuGet Package Missing PDB Files",
+    "LatestDate": "2014-10-16T19:32:59.123-07:00"
+  },
+  {
+    "Id": "570038",
+    "Title": "Does model loaded with Model::CreateFromSDKMESH or Model::CreateFromCMO have mipmaps generated?",
+    "LatestDate": "2014-10-17T10:37:58.27-07:00"
+  },
+  {
+    "Id": "570153",
+    "Title": "Space characters in SpriteFont:: MeasureSting",
+    "LatestDate": "2014-10-19T22:05:28.087-07:00"
+  },
+  {
+    "Id": "570698",
+    "Title": "Question about Resource File Loading",
+    "LatestDate": "2014-10-31T21:38:02.53-07:00"
+  },
+  {
+    "Id": "571078",
+    "Title": "Properly using textures with CMO files",
+    "LatestDate": "2014-11-02T10:36:23.157-08:00"
+  },
+  {
+    "Id": "571401",
+    "Title": "DirectX11 Screenshot Tool",
+    "LatestDate": "2014-11-05T15:00:33.357-08:00"
+  },
+  {
+    "Id": "571923",
+    "Title": "Bug in Simplemath.inl Matrix != ",
+    "LatestDate": "2014-11-13T11:31:20.46-08:00"
+  },
+  {
+    "Id": "571945",
+    "Title": "Can we use static DeviceResources member instead of using SharedResourcePool class",
+    "LatestDate": "2014-11-13T11:07:07.563-08:00"
+  },
+  {
+    "Id": "572563",
+    "Title": "Spritebatch and texture arrays",
+    "LatestDate": "2014-11-21T21:34:48.387-08:00"
+  },
+  {
+    "Id": "572573",
+    "Title": "DirectX11 deprecated headers",
+    "LatestDate": "2014-11-21T11:26:51.683-08:00"
+  },
+  {
+    "Id": "572829",
+    "Title": "Using DirectX11 (legacy) SDK with DirectXTK on Windows 7?",
+    "LatestDate": "2014-11-21T16:28:44.713-08:00"
+  },
+  {
+    "Id": "573461",
+    "Title": "Shader example 2D",
+    "LatestDate": "2014-11-30T07:53:57.823-08:00"
+  },
+  {
+    "Id": "573730",
+    "Title": "SpriteBatch in deferred context",
+    "LatestDate": "2014-12-03T11:08:09.113-08:00"
+  },
+  {
+    "Id": "574276",
+    "Title": "Drawing lines in 3D using primitive batch",
+    "LatestDate": "2014-12-14T05:02:29.23-08:00"
+  },
+  {
+    "Id": "574894",
+    "Title": "Using Vertex, Geometry, and Pixel Shaders",
+    "LatestDate": "2014-12-13T22:31:41.447-08:00"
+  },
+  {
+    "Id": "576356",
+    "Title": "Undefined Behaviour in PlatformHelpers.h?",
+    "LatestDate": "2014-12-28T08:28:53.877-08:00"
+  },
+  {
+    "Id": "576856",
+    "Title": "Quicke spritebatch drawing horsepower question",
+    "LatestDate": "2015-01-05T10:19:01.26-08:00"
+  },
+  {
+    "Id": "576911",
+    "Title": "Windows Store 8.1 App Intellisense complaining about DirectXTK.winmd file not found",
+    "LatestDate": "2015-01-06T05:26:39.97-08:00"
+  },
+  {
+    "Id": "576973",
+    "Title": "Required to copy DirectXTK folder to every project using it?",
+    "LatestDate": "2015-01-06T10:26:21.663-08:00"
+  },
+  {
+    "Id": "579406",
+    "Title": "Proposed change of license",
+    "LatestDate": "2015-03-31T17:28:33.72-07:00"
+  },
+  {
+    "Id": "579562",
+    "Title": "Textures change primitives' color",
+    "LatestDate": "2015-02-05T12:22:19.373-08:00"
+  },
+  {
+    "Id": "580728",
+    "Title": "Where does SpriteBatch get its 'quad' from?",
+    "LatestDate": "2015-02-15T14:04:34.27-08:00"
+  },
+  {
+    "Id": "581517",
+    "Title": "Retiring VS 2010 and VS 2012 support",
+    "LatestDate": "2016-02-26T08:32:09.62-08:00"
+  },
+  {
+    "Id": "582034",
+    "Title": "MakeSprintFont tool and XNA",
+    "LatestDate": "2015-02-27T12:58:08.773-08:00"
+  },
+  {
+    "Id": "582441",
+    "Title": "Drawing a primitive batch in screen space, and build DXTK as 32-bit?",
+    "LatestDate": "2015-03-06T21:14:29.62-08:00"
+  },
+  {
+    "Id": "584177",
+    "Title": "Creating texture array",
+    "LatestDate": "2015-03-03T00:57:23.067-08:00"
+  },
+  {
+    "Id": "584519",
+    "Title": "Spritebatch->Begin with AlphatestEffect",
+    "LatestDate": "2015-03-06T19:43:19.323-08:00"
+  },
+  {
+    "Id": "585982",
+    "Title": "Problem with loading models using CreateFromCMO.",
+    "LatestDate": "2015-03-14T22:53:51.987-07:00"
+  },
+  {
+    "Id": "586126",
+    "Title": "What's the most appropriate way to \"upscale\" to full screen?",
+    "LatestDate": "2015-03-12T21:43:50.17-07:00"
+  },
+  {
+    "Id": "586300",
+    "Title": "Creating textures from file",
+    "LatestDate": "2015-03-14T09:42:44.1-07:00"
+  },
+  {
+    "Id": "586336",
+    "Title": "SpriteBatch and resing loaded texture.",
+    "LatestDate": "2015-03-14T22:57:20.213-07:00"
+  },
+  {
+    "Id": "588378",
+    "Title": "Vertex Colors missing from CMO",
+    "LatestDate": "2015-03-19T18:00:06.153-07:00"
+  },
+  {
+    "Id": "611607",
+    "Title": "Access d3dDevice object from another class",
+    "LatestDate": "2015-03-25T10:34:53.043-07:00"
+  },
+  {
+    "Id": "636358",
+    "Title": "Sprite Effects",
+    "LatestDate": "2015-05-05T02:04:31.917-07:00"
+  },
+  {
+    "Id": "638771",
+    "Title": "SpriteBatch - Scale",
+    "LatestDate": "2015-05-26T06:54:51.56-07:00"
+  },
+  {
+    "Id": "639143",
+    "Title": "Adding '\\t' Support for SpriteFont",
+    "LatestDate": "2015-06-04T10:25:39.073-07:00"
+  },
+  {
+    "Id": "640266",
+    "Title": "Difference in color when rendering DDS and PNG textures",
+    "LatestDate": "2015-06-25T09:54:30.547-07:00"
+  },
+  {
+    "Id": "640855",
+    "Title": "error with DrawString()",
+    "LatestDate": "2015-07-28T13:28:13.77-07:00"
+  },
+  {
+    "Id": "641167",
+    "Title": "Error installing the tool kit",
+    "LatestDate": "2015-07-10T11:04:20.48-07:00"
+  },
+  {
+    "Id": "641540",
+    "Title": "Xna.ModelBone equivalent",
+    "LatestDate": "2015-07-18T13:40:51.47-07:00"
+  },
+  {
+    "Id": "641840",
+    "Title": "How to save & restore device state when using SpriteBatch & SpriteFont?",
+    "LatestDate": "2015-07-24T00:09:15.763-07:00"
+  },
+  {
+    "Id": "642304",
+    "Title": "Model, ModelMesh, ModelMeshParts are missing virtual destructor.",
+    "LatestDate": "2015-08-05T04:55:24.41-07:00"
+  },
+  {
+    "Id": "642490",
+    "Title": "windows 10 compatibility ",
+    "LatestDate": "2015-08-09T05:40:30.113-07:00"
+  },
+  {
+    "Id": "643809",
+    "Title": "Unresolved External Symbol",
+    "LatestDate": "2015-08-17T08:34:58.57-07:00"
+  },
+  {
+    "Id": "644679",
+    "Title": "Windows 10 splashscreen",
+    "LatestDate": "2015-09-07T13:48:20.46-07:00"
+  },
+  {
+    "Id": "644691",
+    "Title": "Drawing part of a texture!",
+    "LatestDate": "2015-09-07T15:25:41.943-07:00"
+  },
+  {
+    "Id": "644769",
+    "Title": "Audio Engine hanging a lot when loading",
+    "LatestDate": "2015-09-15T14:15:14.543-07:00"
+  },
+  {
+    "Id": "647552",
+    "Title": "DX10 Picking Demo Sample to DXUT+DXTK",
+    "LatestDate": "2015-11-26T16:44:13.397-08:00"
+  },
+  {
+    "Id": "648457",
+    "Title": "SpriteSortMode_FrontToBack not working on new Lumia 950 phones",
+    "LatestDate": "2015-12-07T07:36:24.233-08:00"
+  },
+  {
+    "Id": "648668",
+    "Title": "XMMatrix Exception with DirectXTK UWP",
+    "LatestDate": "2015-12-14T12:50:40.46-08:00"
+  },
+  {
+    "Id": "648881",
+    "Title": "display RAW texture data",
+    "LatestDate": "2015-12-18T01:47:24.357-08:00"
+  },
+  {
+    "Id": "648989",
+    "Title": "Mixing spriteBatch and primitive batch",
+    "LatestDate": "2015-12-24T08:30:48.003-08:00"
+  },
+  {
+    "Id": "649922",
+    "Title": "Problem in win32 DirectX game template",
+    "LatestDate": "2016-01-15T23:12:27.547-08:00"
+  },
+  {
+    "Id": "653502",
+    "Title": "How to use SetLightDirection dynamically",
+    "LatestDate": "2016-04-12T09:20:27.98-07:00"
+  },
+  {
+    "Id": "655484",
+    "Title": "Transparency in SpriteBatch (Straight Alpha)",
+    "LatestDate": "2016-06-13T12:20:59.973-07:00"
+  },
+  {
+    "Id": "655595",
+    "Title": "Why BasicEffect's SetProjection is required?",
+    "LatestDate": "2016-07-05T06:28:55.787-07:00"
+  },
+  {
+    "Id": "656284",
+    "Title": "Compile Game using Multi-Threaded (/MT)",
+    "LatestDate": "2016-07-25T23:26:55.033-07:00"
+  },
+  {
+    "Id": "656594",
+    "Title": "Memory Leak Detected",
+    "LatestDate": "2016-07-28T23:51:33.883-07:00"
+  },
+  {
+    "Id": "660485",
+    "Title": "Draw PrimitiveBatch with texture?",
+    "LatestDate": "2017-01-09T09:47:07.833-08:00"
+  }
+]

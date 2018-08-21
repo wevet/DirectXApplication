@@ -1,0 +1,410 @@
+[
+  {
+    "Id": 646,
+    "Title": "\"Mesh\" support class (Model/ModelPart)"
+  },
+  {
+    "Id": 647,
+    "Title": "Model/ModelPart needs to support loading VS 2012 .CMO files"
+  },
+  {
+    "Id": 648,
+    "Title": "Model/ModelPart needs to support loading DirectX SDK .SDKMESH files"
+  },
+  {
+    "Id": 649,
+    "Title": "DXUT rewrite based on DirectXTK for Win32 desktop apps"
+  },
+  {
+    "Id": 652,
+    "Title": "WinRT wrappers for DirectXTK"
+  },
+  {
+    "Id": 653,
+    "Title": "Windows Store apps samples for DirectXTK"
+  },
+  {
+    "Id": 654,
+    "Title": "Win32 desktop samples for DirectXTK"
+  },
+  {
+    "Id": 658,
+    "Title": "SpriteBatch doesn't unset the last texture it binds"
+  },
+  {
+    "Id": 662,
+    "Title": "DDSTextureLoader / SpriteBatch : Texture Alpha ?"
+  },
+  {
+    "Id": 663,
+    "Title": "SpriteBatch doesn't restore state after End()"
+  },
+  {
+    "Id": 674,
+    "Title": "SpriteFont MeasureString (Spaces ?)"
+  },
+  {
+    "Id": 749,
+    "Title": "problem with drawing textures on a netbook (GMA 3150, DirectX 9c, Shader 3)"
+  },
+  {
+    "Id": 778,
+    "Title": "DirectXTK doesn't support VS 2010 Express / VS 2012 Express for Desktop"
+  },
+  {
+    "Id": 779,
+    "Title": "Switch to force power of 2 textures in MakeSpriteFont?"
+  },
+  {
+    "Id": 780,
+    "Title": "ScreenGrab WIC does not support SRGB formats"
+  },
+  {
+    "Id": 816,
+    "Title": "[DDSTextureLoader] ID3D11Context::Map fails"
+  },
+  {
+    "Id": 817,
+    "Title": "[DDSTextureLoader] problem with CreateDDSTextureFromFile and ID3D11DeviceContext::Map"
+  },
+  {
+    "Id": 826,
+    "Title": "SpriteBatch: possible performance issue under x64"
+  },
+  {
+    "Id": 827,
+    "Title": "MeasureString ignoring trailing spaces."
+  },
+  {
+    "Id": 834,
+    "Title": "Should be able to use WIC2 when available even with a Windows 7 build"
+  },
+  {
+    "Id": 839,
+    "Title": "SetDebugObjectName unresolved reference"
+  },
+  {
+    "Id": 843,
+    "Title": "CommonStates not setting proper MaxAnisotropy for FL 9.1"
+  },
+  {
+    "Id": 851,
+    "Title": "Force SRGB in CreateDDSTextureFromFileEx"
+  },
+  {
+    "Id": 854,
+    "Title": "problem with drawing textures on  HTC 8S(WP8 ARM)"
+  },
+  {
+    "Id": 855,
+    "Title": "Sprite sheet rendering"
+  },
+  {
+    "Id": 856,
+    "Title": "Model/ModelPart needs to support loading .XNB files"
+  },
+  {
+    "Id": 858,
+    "Title": "Model needs support for skinned animations"
+  },
+  {
+    "Id": 859,
+    "Title": "Texture Coordinates Appear Incorrect with CMOs"
+  },
+  {
+    "Id": 864,
+    "Title": "Get Texture Height\\Width"
+  },
+  {
+    "Id": 866,
+    "Title": "Add SimpleMath"
+  },
+  {
+    "Id": 867,
+    "Title": "PrimitiveBatch does not release resources"
+  },
+  {
+    "Id": 868,
+    "Title": "DirectXTK Simple Sample for Windows phone 8"
+  },
+  {
+    "Id": 869,
+    "Title": "SpriteBatch->Draw(...) NOT working with WP8"
+  },
+  {
+    "Id": 876,
+    "Title": "Cannot load certain dds files"
+  },
+  {
+    "Id": 889,
+    "Title": "Error building Desktop 2012"
+  },
+  {
+    "Id": 894,
+    "Title": "DGSLEffect for supporting VS 2012 Content Pipeline"
+  },
+  {
+    "Id": 915,
+    "Title": "Spritebatch.Draw exception"
+  },
+  {
+    "Id": 921,
+    "Title": "Implement cone as geometry primitive"
+  },
+  {
+    "Id": 931,
+    "Title": "Implement polyhedron as geometric primitive"
+  },
+  {
+    "Id": 941,
+    "Title": "the toolkit renders hidden mesh"
+  },
+  {
+    "Id": 971,
+    "Title": "Fails to compile as Win 8.1 project with VS 2013 Preview"
+  },
+  {
+    "Id": 984,
+    "Title": "Heap"
+  },
+  {
+    "Id": 988,
+    "Title": "Tutorial OnSuspending + OnResuming"
+  },
+  {
+    "Id": 989,
+    "Title": "Platform::OutOfMemoryException^"
+  },
+  {
+    "Id": 993,
+    "Title": "Limited support for texture format conversion"
+  },
+  {
+    "Id": 1003,
+    "Title": "MakeSpriteFont - add /sharp switch"
+  },
+  {
+    "Id": 1019,
+    "Title": "SpriteFont::MeasureString ignores whitespace"
+  },
+  {
+    "Id": 1020,
+    "Title": "GeometricPrimative should have a basic line renderer."
+  },
+  {
+    "Id": 1026,
+    "Title": "Add default paths to EffectFactory"
+  },
+  {
+    "Id": 1036,
+    "Title": "The tool MakeSpriteFont is getting slower when the char region is latger than 2000"
+  },
+  {
+    "Id": 1049,
+    "Title": "Simple Mesh collision testing"
+  },
+  {
+    "Id": 1053,
+    "Title": "Debug tracing support"
+  },
+  {
+    "Id": 1057,
+    "Title": "Problem with SpriteFont::DrawString and Euro symbol"
+  },
+  {
+    "Id": 1058,
+    "Title": "DirectXTK for Audio"
+  },
+  {
+    "Id": 1064,
+    "Title": "SoundStream class for playing streaming wave banks"
+  },
+  {
+    "Id": 1066,
+    "Title": "MediaStream class for playing compressed audio"
+  },
+  {
+    "Id": 1067,
+    "Title": "Voice reuse for one-shots"
+  },
+  {
+    "Id": 1070,
+    "Title": "Texture bundler"
+  },
+  {
+    "Id": 1071,
+    "Title": "DirectXTK for Audio should support a volume limiter on the master voice"
+  },
+  {
+    "Id": 1108,
+    "Title": "Inside out shapes"
+  },
+  {
+    "Id": 1123,
+    "Title": "Add support for signed-distance field fonts to SpriteFont"
+  },
+  {
+    "Id": 1135,
+    "Title": "SimpleMath needs billboard matrix functions"
+  },
+  {
+    "Id": 1145,
+    "Title": "Direct3DXAML app not working with DirectXTK_WP8"
+  },
+  {
+    "Id": 1146,
+    "Title": "Can't create WaveBank from file"
+  },
+  {
+    "Id": 1162,
+    "Title": "SetVolume/Pan/Pitch only works after Play"
+  },
+  {
+    "Id": 1163,
+    "Title": "XWBTool needs to strip 'hypens' when generating header"
+  },
+  {
+    "Id": 1164,
+    "Title": "std::min and std::max out of date"
+  },
+  {
+    "Id": 1191,
+    "Title": "Resolved"
+  },
+  {
+    "Id": 1204,
+    "Title": "Project problems when targeting DirectX and XAML (Windows Phone Silverlight 8.1)"
+  },
+  {
+    "Id": 1208,
+    "Title": "Model support for collision meshes"
+  },
+  {
+    "Id": 1224,
+    "Title": "GamePad"
+  },
+  {
+    "Id": 1225,
+    "Title": "VideoPlayer"
+  },
+  {
+    "Id": 1226,
+    "Title": "Debug Shapes"
+  },
+  {
+    "Id": 1233,
+    "Title": "SpriteFont never draws 'space' character in Xbox Controller Sprite Font"
+  },
+  {
+    "Id": 1235,
+    "Title": "AudioEmitter enhancements"
+  },
+  {
+    "Id": 1236,
+    "Title": "Very weird problem regarding transparency"
+  },
+  {
+    "Id": 1237,
+    "Title": "Add IEffectMaterial interface"
+  },
+  {
+    "Id": 1261,
+    "Title": "Model support for VBO"
+  },
+  {
+    "Id": 1271,
+    "Title": "Simplemath.inl Matrix != operator bug"
+  },
+  {
+    "Id": 1274,
+    "Title": "Getting Vertex & Index buffer info from Geometry Primitive"
+  },
+  {
+    "Id": 1280,
+    "Title": "Make support for Windows Phone Silverlight 8.1"
+  },
+  {
+    "Id": 1304,
+    "Title": "SoundEffect missing some overloads"
+  },
+  {
+    "Id": 1305,
+    "Title": "SetPitch control doesn't work as expected"
+  },
+  {
+    "Id": 1307,
+    "Title": "SaveWICTextureToFile() does not write sRGB metadata for jpeg files"
+  },
+  {
+    "Id": 1308,
+    "Title": "SimpleMath is missing equivalents to Viewport methods"
+  },
+  {
+    "Id": 1309,
+    "Title": "Rendering models disable other rendering"
+  },
+  {
+    "Id": 1310,
+    "Title": "DirectX Tool Kit (VS 2013 Win32) has dependency"
+  },
+  {
+    "Id": 1311,
+    "Title": "Support for DirectX 12"
+  },
+  {
+    "Id": 1312,
+    "Title": "fatal error LNK1104: cannot open file 'x3daudio.lib'"
+  },
+  {
+    "Id": 1313,
+    "Title": "Linker Error: SpriteBatch::End not found"
+  },
+  {
+    "Id": 1314,
+    "Title": "Problem with CreateDDSTextureFromFile()"
+  },
+  {
+    "Id": 1315,
+    "Title": "GetWindowRect vs GetClientRect"
+  },
+  {
+    "Id": 1316,
+    "Title": "SpriteSortMode_FrontToBack not working on new Lumia 950 phones"
+  },
+  {
+    "Id": 1317,
+    "Title": "Win8 app crash on Win10 (D3D11CreateDevice return null)"
+  },
+  {
+    "Id": 1318,
+    "Title": "Disable enable z buffer using commonstate"
+  },
+  {
+    "Id": 1319,
+    "Title": "how to access the vertices of to get bounding sphere"
+  },
+  {
+    "Id": 1320,
+    "Title": "Unresolved externals in DirectXTK"
+  },
+  {
+    "Id": 1321,
+    "Title": "syntax error: identifier 'DXGI_RGBA in file dxgi1_2.h"
+  },
+  {
+    "Id": 1322,
+    "Title": "Cannot compile project using Multi-threaded (/MT)"
+  },
+  {
+    "Id": 1323,
+    "Title": "FBX ModelLoadCMO path names"
+  },
+  {
+    "Id": 1324,
+    "Title": "class EffectBase::ApplyShaders should set GS to nullptr"
+  },
+  {
+    "Id": 1325,
+    "Title": "Cannot build Desktop_2017 using VS2017"
+  }
+]
