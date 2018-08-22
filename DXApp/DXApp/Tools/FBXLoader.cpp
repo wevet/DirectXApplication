@@ -7,8 +7,8 @@ using namespace PrototypeTools;
 
 FBXLoader::FBXLoader(ID3D11Device* pDevice, ID3D11DeviceContext* pDeviceContext, ID3D11RenderTargetView* pRenderTargetView, D3D11_VIEWPORT viewport)
 {
+	m_pDevice = pDevice;
 	m_pDeviceContext = pDeviceContext;
-	m_pDevice   = pDevice;
 	m_pRenderTargetView = pRenderTargetView;
 	m_pViewport = viewport;
 	fbxManager  = FbxManager::Create();
@@ -101,7 +101,7 @@ bool FBXLoader::Initialize()
 		return false;
 	}
 
-	_stprintf_s(DebugStr, 512, _T("\n ■□■ Log: get mesh array success ArrayCount %d ■□■ \n"), meshArray.size());
+	_stprintf_s(DebugStr, 512, _T("\n ■□■ Log: get mesh array success ArrayCount %zd ■□■ \n"), meshArray.size());
 	OutputDebugString(DebugStr);
 
 	for (auto mesh : meshArray)
@@ -129,10 +129,11 @@ void FBXLoader::Render(float dt)
 	//memcpy_s(pdata.pData, pdata.RowPitch, (void*)(&cb), sizeof(cb));
 	//m_pDeviceContext->Unmap(pConstantBuffer, 0);
 
-	for (auto mesh : meshArray)
-	{
-		m_pDeviceContext->DrawIndexed(mesh->GetPolygonVertexCount(), 0, 0);
-	}
+	// @TODO
+	//for (auto mesh : meshArray)
+	//{
+	//	m_pDeviceContext->DrawIndexed(mesh->GetPolygonVertexCount(), 0, 0);
+	//}
 }
 
 void FBXLoader::LoadNode(FbxNode * fbxNode)
@@ -156,6 +157,7 @@ void FBXLoader::LoadNode(FbxNode * fbxNode)
 				// Load mesh skeleton
 				// LoadMesh_Skeleton((FbxMesh*)nodeAttributeFbx);
 
+				// downcast pointer
 				meshArray.push_back((FbxMesh*)nodeAttributeFbx);
 				break;
 			}
@@ -176,12 +178,14 @@ void FBXLoader::LoadMesh(FbxMesh * mesh)
 	{
 		return;
 	}
-
-	vertices = new VERTEX[mesh->GetControlPointsCount()];
-	for (int i = 0; i < mesh->GetControlPointsCount(); i++) {
-		vertices[i].Pos.x = (FLOAT)mesh->GetControlPointAt(i)[0];
-		vertices[i].Pos.y = (FLOAT)mesh->GetControlPointAt(i)[1];
-		vertices[i].Pos.z = (FLOAT)mesh->GetControlPointAt(i)[2];
+	// 頂点数
+	int controlNum = mesh->GetControlPointsCount();
+	vertices = new VERTEX[controlNum];
+	for (int i = 0; i < mesh->GetControlPointsCount(); i++) 
+	{
+		vertices[i].Pos.x = (float)mesh->GetControlPointAt(i)[0];
+		vertices[i].Pos.y = (float)mesh->GetControlPointAt(i)[1];
+		vertices[i].Pos.z = (float)mesh->GetControlPointAt(i)[2];
 	}
 
 	HRESULT hr;
@@ -204,7 +208,7 @@ void FBXLoader::LoadMesh(FbxMesh * mesh)
 
 	// インデックスデータの取り出しとバッファの設定
 	D3D11_BUFFER_DESC bd_index;
-	bd_index.ByteWidth = sizeof(int) * mesh->GetPolygonVertexCount();
+	bd_index.ByteWidth = sizeof(WORD) * mesh->GetPolygonVertexCount();
 	bd_index.Usage = D3D11_USAGE_DEFAULT;
 	bd_index.BindFlags = D3D11_BIND_INDEX_BUFFER;
 	bd_index.CPUAccessFlags = 0;
@@ -212,6 +216,8 @@ void FBXLoader::LoadMesh(FbxMesh * mesh)
 	bd_index.StructureByteStride = 0;
 	D3D11_SUBRESOURCE_DATA data_index;
 	data_index.pSysMem = mesh->GetPolygonVertices();
+	data_index.SysMemPitch = 0;
+	data_index.SysMemSlicePitch = 0;
 	hr = m_pDevice->CreateBuffer(&bd_index, &data_index, &indBuffer);
 	if (FAILED(hr))
 	{
@@ -245,4 +251,5 @@ void FBXLoader::LoadMesh(FbxMesh * mesh)
 	m_pDeviceContext->RSSetState(pRasterizerState);
 	m_pDeviceContext->OMSetRenderTargets(1, &m_pRenderTargetView, NULL);
 	m_pDeviceContext->RSSetViewports(1, &m_pViewport);
+	m_pDeviceContext->DrawIndexed(mesh->GetPolygonVertexCount(), 0, 0);
 }

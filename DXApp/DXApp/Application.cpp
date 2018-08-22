@@ -12,7 +12,6 @@ Application::Application(HINSTANCE hInstance) : DXApp(hInstance)
 
 Application::~Application()
 {
-	//Memory::SafeRelease(m_pTexture);
 	fbxLoader.release();
 }
 
@@ -35,15 +34,12 @@ void Application::Update(float dt)
 
 void Application::Render(float dt)
 {
-	m_pImmediateContext->ClearRenderTargetView(m_pRenderTargetView, Colors::White);
+	m_pImmediateContext->ClearRenderTargetView(m_pRenderTargetView, Colors::Black);
 
 	// draw spritebatch
 	spriteBatch->Begin();
 	spriteBatch->Draw(m_pTexture.Get(), m_pos);
 	spriteBatch->End();
-
-	// fbx loader
-	fbxLoader->Render(dt);
 
 	HR(m_pSwapChain->Present(0, 0));
 }

@@ -2,6 +2,7 @@
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <string>
+#include <d3d11_1.h>
 #include "DXUtil.h"
 
 class DXApp
@@ -25,6 +26,7 @@ protected:
 	HINSTANCE   m_hAppInstance;
 	UINT        m_ClientWidth;
 	UINT        m_ClientHeight;
+	UINT        m_SwapChainCount;
 	std::string m_AppTitle;
 	DWORD       m_WndStyle;
 

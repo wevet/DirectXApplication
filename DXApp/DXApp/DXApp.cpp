@@ -27,6 +27,7 @@ DXApp::DXApp(HINSTANCE hInstance)
 	m_ClientHeight = WINDOW_HEIGHT;
 	m_AppTitle = "DirectX11 Application";
 	m_WndStyle = WS_OVERLAPPEDWINDOW;
+	m_SwapChainCount = 2;
 	g_pApp = this;
 
 	m_pDevice = nullptr;
@@ -90,13 +91,14 @@ bool DXApp::InitWindow()
 	wcex.style = CS_HREDRAW | CS_VREDRAW;
 	wcex.hInstance = m_hAppInstance;
 	wcex.lpfnWndProc = MainWndProc;
-	wcex.hIcon = LoadIcon(NULL, IDI_APPLICATION);
-	wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wcex.hbrBackground = (HBRUSH)GetStockObject(NULL_BRUSH);
 	wcex.lpszMenuName  = _T("DirectX11");
 	wcex.lpszClassName = _T("DirectX11");
-	wcex.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
+	wcex.hIcon   = LoadIcon(m_hAppInstance, IDI_APPLICATION);
+	wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
+	wcex.hIconSm = LoadIcon(m_hAppInstance, IDI_APPLICATION);
 
+	// window classの登録
 	if (!RegisterClassEx(&wcex))
 	{
 		OutputDebugString("\n Failed to create window class \n");
@@ -150,9 +152,9 @@ LRESULT DXApp::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 bool DXApp::InitDirect3D()
 {
 	UINT createDeviceFlags = 0;
-#ifdef DEBUG
+#if defined(DEBUG) || defined(_DEBUG)
 	createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
-#endif // DEBUG
+#endif //defined(DEBUG) || deifned(_DEBUG)
 
 	D3D_DRIVER_TYPE driverTypes[] = 
 	{
@@ -165,24 +167,23 @@ bool DXApp::InitDirect3D()
 
 	D3D_FEATURE_LEVEL featureLevels[] = 
 	{
-		D3D_FEATURE_LEVEL_10_1,
 		D3D_FEATURE_LEVEL_11_0,
-		D3D_FEATURE_LEVEL_11_1
-		//D3D_FEATURE_LEVEL_12_0,
-		//D3D_FEATURE_LEVEL_12_1
+		D3D_FEATURE_LEVEL_11_1,
+		D3D_FEATURE_LEVEL_10_1,
 	};
 
 	UINT numFeatureLevels = ARRAYSIZE(featureLevels);
 
+	// swap chainの構成設定
 	DXGI_SWAP_CHAIN_DESC swapDesc;
 	ZeroMemory(&swapDesc, sizeof(DXGI_SWAP_CHAIN_DESC));
-	swapDesc.BufferCount = 1; //double buffererd;
-	swapDesc.BufferDesc.Width = m_ClientWidth;
+	swapDesc.BufferCount = m_SwapChainCount;
+	swapDesc.BufferDesc.Width  = m_ClientWidth;
 	swapDesc.BufferDesc.Height = m_ClientHeight;
 	swapDesc.BufferDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
 	swapDesc.BufferDesc.RefreshRate.Numerator = 60;
 	swapDesc.BufferDesc.RefreshRate.Denominator = 1;
-	swapDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+	swapDesc.BufferUsage  = DXGI_USAGE_RENDER_TARGET_OUTPUT | DXGI_USAGE_SHADER_INPUT;
 	swapDesc.OutputWindow = m_hAppWnd;
 	swapDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 	swapDesc.Windowed = true;
@@ -237,7 +238,7 @@ bool DXApp::InitDirect3D()
 		return false;
 	}
 
-	// create render target view
+	// バックバッファを取得.
 	ID3D11Texture2D* m_pBackBufferTexture = 0;
 	HR(m_pSwapChain->GetBuffer(NULL, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&m_pBackBufferTexture)));
 	HR(m_pDevice->CreateRenderTargetView(m_pBackBufferTexture, nullptr, &m_pRenderTargetView));
@@ -255,7 +256,6 @@ bool DXApp::InitDirect3D()
 	m_Viewport.MaxDepth = 1.0f;
 
 	m_pImmediateContext->RSSetViewports(1, &m_Viewport);
-
 	return true;
 }
 
