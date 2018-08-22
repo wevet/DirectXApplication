@@ -2,10 +2,11 @@
 
 
 using namespace Prototype;
+using namespace PrototypeTools;
 
 Application::Application(HINSTANCE hInstance) : DXApp(hInstance)
 {
-	fbxLoader.reset(new PrototypeTools::FBXLoader());
+	//
 }
 
 
@@ -22,15 +23,6 @@ bool Application::Initialize()
 		return false;
 	}
 
-	if (!fbxLoader->Initialize(
-		m_pDevice, 
-		m_pImmediateContext, 
-		m_Viewport))
-	{
-		OutputDebugString("\n Failed to fbx loader class \n");
-		return false;
-	}
-
 	InitDirect3DInternal();
 	return true;
 
@@ -38,17 +30,20 @@ bool Application::Initialize()
 
 void Application::Update(float dt)
 {
-	//m_pos += (m_pos * dt);
+	m_pos += (m_pos * dt);
 }
 
 void Application::Render(float dt)
 {
-	m_pImmediateContext->ClearRenderTargetView(m_pRenderTargetView, Colors::SlateGray);
+	m_pImmediateContext->ClearRenderTargetView(m_pRenderTargetView, Colors::White);
 
 	// draw spritebatch
 	spriteBatch->Begin();
 	spriteBatch->Draw(m_pTexture.Get(), m_pos);
 	spriteBatch->End();
+
+	// fbx loader
+	fbxLoader->Render(dt);
 
 	HR(m_pSwapChain->Present(0, 0));
 }
@@ -57,6 +52,9 @@ void Application::InitDirect3DInternal()
 {
 	spriteBatch.reset(new SpriteBatch(m_pImmediateContext));
 	HR(CreateDDSTextureFromFile(m_pDevice, L"Assets/Sample.dds", nullptr, &m_pTexture));
+
+	fbxLoader.reset(new FBXLoader(m_pDevice, m_pImmediateContext, m_pRenderTargetView, m_Viewport));
+	fbxLoader->Initialize();
 
 	DXApp::InitDirect3DInternal();
 }

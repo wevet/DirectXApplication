@@ -132,6 +132,7 @@
     <ClInclude Include="DXERR\dxerr.h" />
     <ClInclude Include="DXUtil.h" />
     <ClInclude Include="GameObject\Actor.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Tools\FBXLoader.h" />
   </ItemGroup>
   <ItemGroup>

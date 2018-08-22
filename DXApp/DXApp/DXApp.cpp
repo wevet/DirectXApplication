@@ -110,8 +110,6 @@ bool DXApp::InitWindow()
 	UINT x = GetSystemMetrics(SM_CXSCREEN) / 2 - width / 2;
 	UINT y = GetSystemMetrics(SM_CXSCREEN) / 2 - height / 2;
 
-	//m_hAppWnd = CreateWindow("DXAPPWNDCLASS", m_AppTitle.c_str(), m_WndStyle, x, y, width, height, m_hAppInstance, NULL);
-
 	//ウィンドウ生成
 	m_hAppWnd = CreateWindow(
 		wcex.lpszClassName,

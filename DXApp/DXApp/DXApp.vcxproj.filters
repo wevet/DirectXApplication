@@ -19,6 +19,9 @@
     <Filter Include="Tools">
       <UniqueIdentifier>{969ef3bb-5c63-412e-b513-1cca464caaab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{4210cd6f-dcb6-4747-9da7-7c9fa61664ab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DXUtil.h">
@@ -38,6 +41,9 @@
     </ClInclude>
     <ClInclude Include="Tools\FBXLoader.h">
       <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
