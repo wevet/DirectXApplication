@@ -14,7 +14,7 @@ public:
 	int Run();
 
 	// framework api
-	virtual bool Init();
+	virtual bool Initialize();
 	virtual void Update(float dt) = 0;
 	virtual void Render(float dt) = 0;
 	virtual LRESULT MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);

@@ -1,5 +1,8 @@
-#include "DXApp.h"
 #include <tchar.h>
+#include <Windows.h>
+#include <chrono>
+#include <thread>
+#include "DXApp.h"
 
 namespace
 {
@@ -63,7 +66,7 @@ int DXApp::Run()
 	return static_cast<int>(msg.wParam);
 } 
 
-bool DXApp::Init()
+bool DXApp::Initialize()
 {
 	if (!InitWindow()) 
 	{

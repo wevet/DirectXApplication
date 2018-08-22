@@ -5,6 +5,8 @@
 #include <wrl.h>
 #include <d3d11_1.h>
 #include "DXApp.h"
+#include "Tools\FBXLoader.h"
+#include "GameObject\Actor.h"
 
 #ifdef _DEBUG
 #pragma comment(lib, "DirectXTK_d.lib")
@@ -19,6 +21,8 @@
 
 using namespace DirectX;
 using namespace Microsoft;
+using namespace GameObject;
+using namespace PrototypeTools;
 
 namespace Prototype
 {
@@ -29,7 +33,7 @@ namespace Prototype
 		Application(HINSTANCE hInstace);
 		~Application();
 
-		bool Init() override;
+		bool Initialize() override;
 		void Update(float dt) override;
 		void Render(float dt) override;
 
@@ -38,9 +42,9 @@ namespace Prototype
 
 	private:
 		std::unique_ptr<SpriteBatch> spriteBatch;
+		std::unique_ptr<FBXLoader> fbxLoader;
 		WRL::ComPtr<ID3D11ShaderResourceView> m_pTexture;
 		SimpleMath::Vector2 m_pos;
-		//ID3D11ShaderResourceView* m_pTexture;
 
 	};
 

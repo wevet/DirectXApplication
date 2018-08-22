@@ -16,6 +16,9 @@
     <Filter Include="GameObject">
       <UniqueIdentifier>{10f505e3-ed07-45e9-859b-d2f2e518af89}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tools">
+      <UniqueIdentifier>{969ef3bb-5c63-412e-b513-1cca464caaab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DXUtil.h">
@@ -32,6 +35,9 @@
     </ClInclude>
     <ClInclude Include="GameObject\Actor.h">
       <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\FBXLoader.h">
+      <Filter>Tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -53,10 +59,18 @@
     <ClCompile Include="GameObject\Actor.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="Tools\FBXLoader.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Sample.dds">
       <Filter>リソース ファイル</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\FBX\Miku_default\Miku_default.fbx">
+      <Filter>リソース ファイル</Filter>
+    </None>
   </ItemGroup>
 </Project>

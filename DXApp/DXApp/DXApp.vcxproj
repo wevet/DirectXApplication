@@ -132,6 +132,7 @@
     <ClInclude Include="DXERR\dxerr.h" />
     <ClInclude Include="DXUtil.h" />
     <ClInclude Include="GameObject\Actor.h" />
+    <ClInclude Include="Tools\FBXLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
@@ -140,6 +141,7 @@
     <ClCompile Include="DXUtil.cpp" />
     <ClCompile Include="GameObject\Actor.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Tools\FBXLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Sample.dds" />
@@ -148,6 +150,9 @@
     <ProjectReference Include="directxtk\sourceCode\directxtk\DirectXTK_Desktop_2017.vcxproj">
       <Project>{e0b52ae7-e160-4d32-bf3f-910b785e5a8e}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\FBX\Miku_default\Miku_default.fbx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

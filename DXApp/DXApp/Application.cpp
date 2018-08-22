@@ -5,19 +5,29 @@ using namespace Prototype;
 
 Application::Application(HINSTANCE hInstance) : DXApp(hInstance)
 {
-
+	fbxLoader.reset(new PrototypeTools::FBXLoader());
 }
 
 
 Application::~Application()
 {
 	//Memory::SafeRelease(m_pTexture);
+	fbxLoader.release();
 }
 
-bool Application::Init()
+bool Application::Initialize()
 {
-	if (!DXApp::Init())
+	if (!DXApp::Initialize())
 	{
+		return false;
+	}
+
+	if (!fbxLoader->Initialize(
+		m_pDevice, 
+		m_pImmediateContext, 
+		m_Viewport))
+	{
+		OutputDebugString("\n Failed to fbx loader class \n");
 		return false;
 	}
 
@@ -47,5 +57,6 @@ void Application::InitDirect3DInternal()
 {
 	spriteBatch.reset(new SpriteBatch(m_pImmediateContext));
 	HR(CreateDDSTextureFromFile(m_pDevice, L"Assets/Sample.dds", nullptr, &m_pTexture));
+
 	DXApp::InitDirect3DInternal();
 }
