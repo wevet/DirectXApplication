@@ -6,7 +6,7 @@
 #pragma comment(lib, "d3d11.lib")
 
 #ifdef _DEBUG
-#ifndef HR
+//#ifndef HR
 #define HR(x) \
 {\
 	HRESULT hr = x; \
@@ -15,11 +15,10 @@
 		DXTraceW(__FILEW__, __LINE__, hr, L#x, TRUE);\
 	}\
 }
-#endif
-#ifndef HR
+#else
 #define HR(x) x;
 #endif
-#endif
+
 
 #define WINDOW_WIDTH  1280;
 #define WINDOW_HEIGHT  720;

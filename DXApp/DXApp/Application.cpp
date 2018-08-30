@@ -1,11 +1,15 @@
 #include "Application.h"
-
+#include "fbxsdk.h"
 
 using namespace Prototype;
 
 Application::Application(HINSTANCE hInstance) : DXApp(hInstance)
 {
-	//
+	FbxManager* manager = FbxManager::Create();
+	if (manager)
+	{
+		manager->Destroy();
+	}
 }
 
 
@@ -39,7 +43,6 @@ void Application::Render(float dt)
 	spriteBatch->Begin();
 	spriteBatch->Draw(m_pTexture.Get(), m_pos);
 	spriteBatch->End();
-
 	HR(m_pSwapChain->Present(0, 0));
 }
 

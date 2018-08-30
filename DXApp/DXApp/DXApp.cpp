@@ -154,8 +154,8 @@ bool DXApp::InitDirect3D()
 	UINT createDeviceFlags = 0;
 #if defined(DEBUG)
 	createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
-#endif //defined(DEBUG) || deifned(_DEBUG)
-
+#endif //defined(DEBUG)
+	
 	D3D_DRIVER_TYPE driverTypes[] = 
 	{
 		D3D_DRIVER_TYPE_HARDWARE,
