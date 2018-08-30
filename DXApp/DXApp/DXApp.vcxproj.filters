@@ -16,9 +16,6 @@
     <Filter Include="GameObject">
       <UniqueIdentifier>{10f505e3-ed07-45e9-859b-d2f2e518af89}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Tools">
-      <UniqueIdentifier>{969ef3bb-5c63-412e-b513-1cca464caaab}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Shaders">
       <UniqueIdentifier>{4210cd6f-dcb6-4747-9da7-7c9fa61664ab}</UniqueIdentifier>
     </Filter>
@@ -38,9 +35,6 @@
     </ClInclude>
     <ClInclude Include="GameObject\Actor.h">
       <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Tools\FBXLoader.h">
-      <Filter>Tools</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>ヘッダー ファイル</Filter>
@@ -64,9 +58,6 @@
     </ClCompile>
     <ClCompile Include="GameObject\Actor.cpp">
       <Filter>GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Tools\FBXLoader.cpp">
-      <Filter>Tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

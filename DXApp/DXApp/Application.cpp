@@ -2,7 +2,6 @@
 
 
 using namespace Prototype;
-using namespace PrototypeTools;
 
 Application::Application(HINSTANCE hInstance) : DXApp(hInstance)
 {
@@ -12,7 +11,7 @@ Application::Application(HINSTANCE hInstance) : DXApp(hInstance)
 
 Application::~Application()
 {
-	fbxLoader.release();
+	//
 }
 
 bool Application::Initialize()
@@ -48,9 +47,5 @@ void Application::InitDirect3DInternal()
 {
 	spriteBatch.reset(new SpriteBatch(m_pImmediateContext));
 	HR(CreateDDSTextureFromFile(m_pDevice, L"Assets/Sample.dds", nullptr, &m_pTexture));
-
-	fbxLoader.reset(new FBXLoader(m_pDevice, m_pImmediateContext, m_pRenderTargetView, m_Viewport));
-	fbxLoader->Initialize();
-
 	DXApp::InitDirect3DInternal();
 }

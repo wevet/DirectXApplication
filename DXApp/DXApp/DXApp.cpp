@@ -152,7 +152,7 @@ LRESULT DXApp::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 bool DXApp::InitDirect3D()
 {
 	UINT createDeviceFlags = 0;
-#if defined(DEBUG) || defined(_DEBUG)
+#if defined(DEBUG)
 	createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
 #endif //defined(DEBUG) || deifned(_DEBUG)
 
@@ -261,5 +261,6 @@ bool DXApp::InitDirect3D()
 
 void DXApp::InitDirect3DInternal()
 {
+	//
 }
 
