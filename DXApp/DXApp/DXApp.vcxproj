@@ -139,7 +139,8 @@
     <ClInclude Include="DXApp.h" />
     <ClInclude Include="DXERR\dxerr.h" />
     <ClInclude Include="DXUtil.h" />
-    <ClInclude Include="FBXLoader.h" />
+    <ClInclude Include="FBX\FBXLoader.h" />
+    <ClInclude Include="FBX\FBXRenderer.h" />
     <ClInclude Include="GameObject\Actor.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
@@ -148,7 +149,8 @@
     <ClCompile Include="DXApp.cpp" />
     <ClCompile Include="DXERR\dxerr.cpp" />
     <ClCompile Include="DXUtil.cpp" />
-    <ClCompile Include="FBXLoader.cpp" />
+    <ClCompile Include="FBX\FBXLoader.cpp" />
+    <ClCompile Include="FBX\FBXRenderer.cpp" />
     <ClCompile Include="GameObject\Actor.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>

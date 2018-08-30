@@ -16,11 +16,12 @@
 #include "SpriteBatch.h"
 #include "DDSTextureLoader.h"
 #include "SimpleMath.h"
-
+#include "FBX\FBXRenderer.h"
 
 using namespace DirectX;
 using namespace Microsoft;
 using namespace GameObject;
+using namespace FBX;
 
 namespace Prototype
 {
@@ -42,7 +43,7 @@ namespace Prototype
 		std::unique_ptr<SpriteBatch> spriteBatch;
 		WRL::ComPtr<ID3D11ShaderResourceView> m_pTexture;
 		SimpleMath::Vector2 m_pos;
-
+		FBXRenderer* m_FBXRenderer;
 	};
 
 }

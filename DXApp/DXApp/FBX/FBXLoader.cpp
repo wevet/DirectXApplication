@@ -46,6 +46,7 @@ HRESULT FBXLoader::LoadFBX(const char * fileName, const EAxisSystem axis)
 	InitalizeSdkObject(m_Manager, m_Scene);
 	if (!m_Manager)
 	{
+		OutputDebugString("\n nullptr manager \n");
 		return E_FAIL;
 	}
 
@@ -59,11 +60,13 @@ HRESULT FBXLoader::LoadFBX(const char * fileName, const EAxisSystem axis)
 
 	if (!m_Importer || !m_Importer->Initialize(fileName, lFileFormat))
 	{
+		OutputDebugString("\n error importer \n");
 		return E_FAIL;
 	}
 
 	if (!m_Importer || !m_Importer->Import(m_Scene))
 	{
+		OutputDebugString("\n fail importer \n");
 		return E_FAIL;
 	}
 
@@ -98,7 +101,7 @@ void FBXLoader::InitalizeSdkObject(FbxManager * pManager, FbxScene * pScene)
 	pManager = FbxManager::Create();
 	if (!pManager)
 	{
-		FBXSDK_printf("Error: Unable to create FBX Manager!\n");
+		OutputDebugString("Error: Unable to create FBX Manager!\n");
 		exit(1);
 	}
 	else
@@ -114,7 +117,7 @@ void FBXLoader::InitalizeSdkObject(FbxManager * pManager, FbxScene * pScene)
 	pScene = FbxScene::Create(pManager, "My Scene");
 	if (!pScene)
 	{
-		FBXSDK_printf("Error: Unable to create FBX scene!\n");
+		OutputDebugString("Error: Unable to create FBX scene!\n");
 		exit(1);
 	}
 }

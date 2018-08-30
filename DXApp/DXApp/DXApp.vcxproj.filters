@@ -42,8 +42,11 @@
     <ClInclude Include="resource.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="FBXLoader.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="FBX\FBXLoader.h">
+      <Filter>FBX</Filter>
+    </ClInclude>
+    <ClInclude Include="FBX\FBXRenderer.h">
+      <Filter>FBX</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -65,8 +68,11 @@
     <ClCompile Include="GameObject\Actor.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="FBXLoader.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="FBX\FBXLoader.cpp">
+      <Filter>FBX</Filter>
+    </ClCompile>
+    <ClCompile Include="FBX\FBXRenderer.cpp">
+      <Filter>FBX</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
