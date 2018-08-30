@@ -19,6 +19,9 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{4210cd6f-dcb6-4747-9da7-7c9fa61664ab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="FBX">
+      <UniqueIdentifier>{7e6bd119-8de4-4ae4-9aaa-b01278e2bfac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DXUtil.h">
@@ -37,6 +40,9 @@
       <Filter>GameObject</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="FBXLoader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -58,6 +64,9 @@
     </ClCompile>
     <ClCompile Include="GameObject\Actor.cpp">
       <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="FBXLoader.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

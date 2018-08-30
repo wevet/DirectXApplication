@@ -1,15 +1,9 @@
 #include "Application.h"
-#include "fbxsdk.h"
 
 using namespace Prototype;
 
 Application::Application(HINSTANCE hInstance) : DXApp(hInstance)
 {
-	FbxManager* manager = FbxManager::Create();
-	if (manager)
-	{
-		manager->Destroy();
-	}
 }
 
 
