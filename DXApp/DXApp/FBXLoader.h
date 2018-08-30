@@ -8,9 +8,10 @@
 #include <Windows.h>
 
 // UVset名
-typedef std::tr1::unordered_map<std::string, int> UVsetID;
+// remove namespace tr1
+typedef std::unordered_map<std::string, int> UVsetID;
 // UVSet名, テクスチャパス名(１つのUVSetに複数のテクスチャがぶら下がってることがある)
-typedef std::tr1::unordered_map<std::string, std::vector<std::string>> TextureSet;
+typedef std::unordered_map<std::string, std::vector<std::string>> TextureSet;
 
 
 namespace FBX
@@ -27,13 +28,13 @@ namespace FBX
 			ELEMENT_MAX,
 		};
 
-		MaterialElemementType m_MaterialElementType;
+		MaterialElemementType materialElementType;
 		float r, g, b, a;
-		TextureSet m_TextureSetArray;
+		TextureSet textureSetArray;
 
 		FBXMaterialElement()
 		{
-			m_TextureSetArray.clear();
+			textureSetArray.clear();
 		}
 
 		~FBXMaterialElement()
@@ -43,11 +44,11 @@ namespace FBX
 
 		void Release()
 		{
-			for (TextureSet::iterator it = m_TextureSetArray.begin(); it != m_TextureSetArray.end(); ++it)
+			for (TextureSet::iterator it = textureSetArray.begin(); it != textureSetArray.end(); ++it)
 			{
 				it->second.clear();
 			}
-			m_TextureSetArray.clear();
+			textureSetArray.clear();
 		}
 	};
 
@@ -61,39 +62,39 @@ namespace FBX
 			MATERIAL_PHONG,
 		};
 
-		MaterialType m_MaterialType;
-		FBXMaterialElement m_Ambient;
-		FBXMaterialElement m_Diffuse;
-		FBXMaterialElement m_Emmisive;
-		FBXMaterialElement m_Specular;
+		MaterialType materialType;
+		FBXMaterialElement ambient;
+		FBXMaterialElement diffuse;
+		FBXMaterialElement emmisive;
+		FBXMaterialElement specular;
 
-		float m_Shininess;
-		float m_TransparencyFactor;
+		float shininess;
+		float transparencyFactor;
 	};
 
 	// mesh構成要素
 	struct MeshElement
 	{
 		// 頂点座標のセットをいくつ持つか
-		unsigned int m_NumPosition;
-		unsigned int m_NumNormal;
-		unsigned int m_NumUVSet; // UVセット数
+		unsigned int numPosition;
+		unsigned int numNormal;
+		unsigned int numUVSet; // UVセット数
 	};
 
 	// mesh node
 	struct FBXMeshNode
 	{
-		std::string m_Name;
-		std::string	m_ParentName;
+		std::string name;
+		std::string	parentName;
 
-		MeshElement	m_Elements;
-		std::vector<FBXMaterialNode> m_MaterialArray;
-		UVsetID	m_UvsetID;
+		MeshElement	elements;
+		std::vector<FBXMaterialNode> materialArray;
+		UVsetID	uvsetID;
 
-		std::vector<unsigned int> m_IndexArray;
-		std::vector<FbxVector4> m_PositionArray;// ポジション配列
-		std::vector<FbxVector4>	m_NormalArray;  // 法線配列
-		std::vector<FbxVector2>	m_TexcoordArray;// テクスチャ座標配列
+		std::vector<unsigned int> indexArray;
+		std::vector<FbxVector4> positionArray;// ポジション配列
+		std::vector<FbxVector4>	normalArray;  // 法線配列
+		std::vector<FbxVector2>	texcoordArray;// テクスチャ座標配列
 
 		float matrix4x4[16];
 
@@ -104,12 +105,12 @@ namespace FBX
 
 		void Release()
 		{
-			m_UvsetID.clear();
-			m_TexcoordArray.clear();
-			m_MaterialArray.clear();
-			m_IndexArray.clear();
-			m_PositionArray.clear();
-			m_NormalArray.clear();
+			uvsetID.clear();
+			texcoordArray.clear();
+			materialArray.clear();
+			indexArray.clear();
+			positionArray.clear();
+			normalArray.clear();
 		}
 	};
 
