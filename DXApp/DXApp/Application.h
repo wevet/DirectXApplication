@@ -38,6 +38,7 @@ namespace Prototype
 
 	protected:
 		virtual void InitDirect3DInternal() override;
+		virtual HRESULT InitApp() override;
 
 	private:
 		std::unique_ptr<SpriteBatch> spriteBatch;

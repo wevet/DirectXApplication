@@ -43,7 +43,8 @@ HRESULT FBXLoader::LoadFBX(const char * fileName, const EAxisSystem axis)
 		return E_FAIL;
 	}
 	HRESULT hr = S_OK;
-	InitalizeSdkObject(m_Manager, m_Scene);
+	//InitalizeSdkObject(m_Manager, m_Scene);
+	InitalizeSdkObject();
 	if (!m_Manager)
 	{
 		OutputDebugString("\n nullptr manager \n");
@@ -102,10 +103,10 @@ void FBXLoader::InitalizeSdkObject(FbxManager * pManager, FbxScene * pScene)
 	if (!pManager)
 	{
 		OutputDebugString("Error: Unable to create FBX Manager!\n");
-		exit(1);
 	}
 	else
 	{
+		OutputDebugString("\n Success FBX Manager! \n");
 		FBXSDK_printf("Autodesk FBX SDK version %s\n", pManager->GetVersion());
 	}
 	FbxIOSettings* ios = FbxIOSettings::Create(pManager, IOSROOT);
@@ -118,7 +119,39 @@ void FBXLoader::InitalizeSdkObject(FbxManager * pManager, FbxScene * pScene)
 	if (!pScene)
 	{
 		OutputDebugString("Error: Unable to create FBX scene!\n");
-		exit(1);
+	}
+	else
+	{
+		OutputDebugString("\n Success create FBX scene! \n");
+	}
+}
+
+void FBXLoader::InitalizeSdkObject()
+{
+	m_Manager = FbxManager::Create();
+	if (!m_Manager)
+	{
+		OutputDebugString("Error: Unable to create FBX Manager!\n");
+	}
+	else
+	{
+		OutputDebugString("\n Success FBX Manager! \n");
+		FBXSDK_printf("Autodesk FBX SDK version %s\n", m_Manager->GetVersion());
+	}
+	FbxIOSettings* ios = FbxIOSettings::Create(m_Manager, IOSROOT);
+	m_Manager->SetIOSettings(ios);
+
+	FbxString lPath = FbxGetApplicationDirectory();
+	m_Manager->LoadPluginsDirectory(lPath.Buffer());
+
+	m_Scene = FbxScene::Create(m_Manager, "My Scene");
+	if (!m_Scene)
+	{
+		OutputDebugString("Error: Unable to create FBX scene!\n");
+	}
+	else
+	{
+		OutputDebugString("\n Success create FBX scene! \n");
 	}
 }
 

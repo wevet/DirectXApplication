@@ -85,4 +85,15 @@
       <Filter>リソース ファイル</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Shaders\simpleRenderInstancingVS.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\simpleRenderPS.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\simpleRenderVS.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+  </ItemGroup>
 </Project>

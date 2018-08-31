@@ -1,4 +1,6 @@
 #include "Application.h"
+#include <d3dcompiler.h>
+
 
 using namespace Prototype;
 
@@ -46,16 +48,31 @@ void Application::InitDirect3DInternal()
 	HR(CreateDDSTextureFromFile(m_pDevice, L"Assets/Sample.dds", nullptr, &m_pTexture));
 	DXApp::InitDirect3DInternal();
 
-	m_FBXRenderer = new FBXRenderer;
+}
+
+HRESULT Application::InitApp()
+{
+
 	HRESULT hr = S_OK;
+	m_FBXRenderer = new FBXRenderer;
 	hr = m_FBXRenderer->LoadFBX("Assets/FBX/Miku_default/Miku_default.fbx", m_pDevice);
 
 	if (FAILED(hr))
 	{
 		OutputDebugString("\n Failed to FBXRenderer \n");
+		return hr;
 	}
 	else
 	{
 		OutputDebugString("\n Success to FBXRenderer \n");
 	}
+	UINT compileFlags = 0;
+#if defined(DEBUG)
+	compileFlags = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
+#endif
+
+	ID3DBlob* pVSBlob = NULL;
+	//hr = CompileShaderFromFile(L"simpleRenderVS.hlsl", "vs_main", "vs_4_0", &pVSBlob);
+
+	return S_OK;
 }

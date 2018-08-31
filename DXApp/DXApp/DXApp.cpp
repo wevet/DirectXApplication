@@ -23,13 +23,10 @@ DXApp::DXApp(HINSTANCE hInstance)
 {
 	m_hAppInstance = hInstance;
 	m_hAppWnd      = NULL;
-	m_ClientWidth  = WINDOW_WIDTH;
-	m_ClientHeight = WINDOW_HEIGHT;
 	m_AppTitle = "DirectX11 Application";
 	m_WndStyle = WS_OVERLAPPEDWINDOW;
 	m_SwapChainCount = 2;
 	g_pApp = this;
-
 	m_pDevice = nullptr;
 	m_pImmediateContext = nullptr;
 	m_pRenderTargetView = nullptr;
@@ -53,7 +50,7 @@ int DXApp::Run()
 	MSG msg = { 0 };
 	while (WM_QUIT != msg.message)
 	{
-		if (PeekMessage(&msg, NULL, NULL, NULL, PM_REMOVE)) 
+		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) 
 		{
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
@@ -64,23 +61,25 @@ int DXApp::Run()
 			Render(0.0f);
 		}
 	}
-	return static_cast<int>(msg.wParam);
+	return (int)msg.wParam;
 } 
 
 bool DXApp::Initialize()
 {
-	if (!InitWindow()) 
+	if (FAILED(InitWindow())) 
 	{
 		return false;
 	}
-	if (!InitDirect3D())
+
+	if (FAILED(InitDevice()))
 	{
+		OutputDebugString("\n Failed InitDevice \n");
 		return false;
 	}
 	return true;
 }
 
-bool DXApp::InitWindow()
+HRESULT DXApp::InitWindow()
 {
 	//WNDCLASSX
 	WNDCLASSEX wcex;
@@ -102,15 +101,13 @@ bool DXApp::InitWindow()
 	if (!RegisterClassEx(&wcex))
 	{
 		OutputDebugString("\n Failed to create window class \n");
-		return false;
+		return E_FAIL;
 	}
 
-	RECT rect = { 0,0, m_ClientWidth, m_ClientHeight };
+	UINT width = WINDOW_WIDTH;
+	UINT height = WINDOW_HEIGHT;
+	RECT rect = { 0,0, width, height, };
 	AdjustWindowRect(&rect, m_WndStyle, false);
-	UINT width  = rect.right - rect.left;
-	UINT height = rect.bottom - rect.top;
-	UINT x = GetSystemMetrics(SM_CXSCREEN) / 2 - width / 2;
-	UINT y = GetSystemMetrics(SM_CXSCREEN) / 2 - height / 2;
 
 	//ウィンドウ生成
 	m_hAppWnd = CreateWindow(
@@ -129,16 +126,183 @@ bool DXApp::InitWindow()
 	if (!m_hAppWnd)
 	{
 		OutputDebugString("\n Failed to create window \n");
-		return false;
+		return E_FAIL;
 	}
 
 	ShowWindow(m_hAppWnd, SW_SHOW);
-	return true;
+	return S_OK;
+}
+
+HRESULT DXApp::InitDevice()
+{
+	HRESULT hr = S_OK;
+	RECT rect;
+	GetClientRect(m_hAppWnd, &rect);
+	UINT width  = rect.right - rect.left;
+	UINT height = rect.bottom - rect.top;
+
+	UINT createDeviceFlags = 0;
+#if defined(DEBUG)
+	createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
+#endif
+
+	D3D_DRIVER_TYPE driverTypes[] =
+	{
+		D3D_DRIVER_TYPE_HARDWARE,
+		D3D_DRIVER_TYPE_WARP,
+		D3D_DRIVER_TYPE_REFERENCE
+	};
+	UINT numDriverTypes = ARRAYSIZE(driverTypes);
+
+	D3D_FEATURE_LEVEL featureLevels[] =
+	{
+		D3D_FEATURE_LEVEL_11_1,
+		D3D_FEATURE_LEVEL_11_0,
+		D3D_FEATURE_LEVEL_10_1,
+		D3D_FEATURE_LEVEL_10_0,
+	};
+	UINT numFeatureLevels = ARRAYSIZE(featureLevels);
+
+	// swap chainの構成設定
+	DXGI_SWAP_CHAIN_DESC swapDesc;
+	ZeroMemory(&swapDesc, sizeof(DXGI_SWAP_CHAIN_DESC));
+	swapDesc.BufferCount = m_SwapChainCount;
+	swapDesc.BufferDesc.Width  = width;
+	swapDesc.BufferDesc.Height = height;
+	swapDesc.BufferDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
+	swapDesc.BufferDesc.RefreshRate.Numerator = 60;
+	swapDesc.BufferDesc.RefreshRate.Denominator = 1;
+	swapDesc.BufferUsage  = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+	swapDesc.OutputWindow = m_hAppWnd;
+	swapDesc.SampleDesc.Count   = 1;
+	swapDesc.SampleDesc.Quality = 0;
+	swapDesc.Windowed = true;
+
+	for (int i = 0; i < numDriverTypes; ++i)
+	{
+		hr = D3D11CreateDeviceAndSwapChain(
+			nullptr,
+			driverTypes[i],
+			nullptr,
+			createDeviceFlags,
+			featureLevels,
+			numFeatureLevels,
+			D3D11_SDK_VERSION,
+			&swapDesc,
+			&m_pSwapChain,
+			&m_pDevice,
+			&m_FeatureLevel,
+			&m_pImmediateContext);
+
+		if (SUCCEEDED(hr))
+		{
+			m_DriverType = driverTypes[i];
+			break;
+		}
+	}
+
+	if (FAILED(hr))
+	{
+		OutputDebugString("\n Failed to create device and swap chain \n");
+		return hr;
+	}
+	// user annotation
+	m_pImmediateContext->QueryInterface(__uuidof(ID3DUserDefinedAnnotation), (void**)&m_pUserAnnotation);
+
+	ID3D11Texture2D* pBackBuffer = NULL;
+	hr = m_pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer);
+	if (FAILED(hr))
+	{
+		OutputDebugString("\n Failed GetBuffer \n");
+		return hr;
+	}
+
+	hr = m_pDevice->CreateRenderTargetView(pBackBuffer, NULL, &m_pRenderTargetView);
+	Memory::SafeRelease(pBackBuffer);
+	if (FAILED(hr))
+	{
+		OutputDebugString("\n Failed CreateRenderTargetView \n");
+		return hr;
+	}
+
+	// Create depth stencil texture
+	D3D11_TEXTURE2D_DESC descDepth;
+	ZeroMemory(&descDepth, sizeof(D3D11_TEXTURE2D_DESC));
+	descDepth.Width = width;
+	descDepth.Height = height;
+	descDepth.MipLevels = 1;
+	descDepth.ArraySize = 1;
+	descDepth.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+	descDepth.SampleDesc.Count = 1;
+	descDepth.SampleDesc.Quality = 0;
+	descDepth.Usage = D3D11_USAGE_DEFAULT;
+	descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+	descDepth.CPUAccessFlags = 0;
+	descDepth.MiscFlags = 0;
+	hr = m_pDevice->CreateTexture2D(&descDepth, NULL, &m_pDepthStencil);
+	if (FAILED(hr))
+	{
+		OutputDebugString("\n Failed D3D11_TEXTURE2D_DESC \n");
+		return hr;
+	}
+
+	// Create the depth stencil view
+	D3D11_DEPTH_STENCIL_VIEW_DESC descDSV;
+	ZeroMemory(&descDSV, sizeof(D3D11_DEPTH_STENCIL_VIEW_DESC));
+	descDSV.Format = descDepth.Format;
+	descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+	descDSV.Texture2D.MipSlice = 0;
+	hr = m_pDevice->CreateDepthStencilView(m_pDepthStencil, &descDSV, &m_pDepthStencilView);
+	if (FAILED(hr))
+	{
+		OutputDebugString("\n Failed D3D11_DEPTH_STENCIL_VIEW_DESC \n");
+		return hr;
+	}
+
+	m_pImmediateContext->OMSetRenderTargets(1, &m_pRenderTargetView, m_pDepthStencilView);
+
+	// Create depth stencil state
+	D3D11_DEPTH_STENCIL_DESC descDSS;
+	ZeroMemory(&descDSS, sizeof(descDSS));
+	descDSS.DepthEnable = TRUE;
+	descDSS.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	descDSS.DepthFunc = D3D11_COMPARISON_LESS;
+	descDSS.StencilEnable = FALSE;
+	hr = m_pDevice->CreateDepthStencilState(&descDSS, &m_pDepthStencilState);
+	if (FAILED(hr))
+	{
+		OutputDebugString("\n Failed D3D11_DEPTH_STENCIL_DESC \n");
+		return hr;
+	}
+
+	// viewport
+	m_Viewport.Width  = (float)width;
+	m_Viewport.Height = (float)height;
+	m_Viewport.TopLeftX = 0;
+	m_Viewport.TopLeftY = 0;
+	m_Viewport.MinDepth = 0.0f;
+	m_Viewport.MaxDepth = 1.0f;
+	m_pImmediateContext->RSSetViewports(1, &m_Viewport);
+
+	m_pWorld = XMMatrixIdentity();
+
+	hr = InitApp();
+	if (FAILED(hr))
+	{
+		OutputDebugString("\n Failed InitApp \n");
+		return hr;
+	}
+
+	return S_OK;
+}
+
+HRESULT DXApp::InitApp()
+{
+	return E_NOTIMPL;
 }
 
 LRESULT DXApp::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-
 	switch (msg)
 	{
 	case WM_DESTROY:
@@ -149,118 +313,40 @@ LRESULT DXApp::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	}
 }
 
-bool DXApp::InitDirect3D()
-{
-	UINT createDeviceFlags = 0;
-#if defined(DEBUG)
-	createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
-#endif //defined(DEBUG)
-	
-	D3D_DRIVER_TYPE driverTypes[] = 
-	{
-		D3D_DRIVER_TYPE_HARDWARE,
-		D3D_DRIVER_TYPE_WARP,
-		D3D_DRIVER_TYPE_REFERENCE
-	};
-
-	UINT numDriverTypes = ARRAYSIZE(driverTypes);
-
-	D3D_FEATURE_LEVEL featureLevels[] = 
-	{
-		D3D_FEATURE_LEVEL_11_0,
-		D3D_FEATURE_LEVEL_11_1,
-		D3D_FEATURE_LEVEL_10_1,
-	};
-
-	UINT numFeatureLevels = ARRAYSIZE(featureLevels);
-
-	// swap chainの構成設定
-	DXGI_SWAP_CHAIN_DESC swapDesc;
-	ZeroMemory(&swapDesc, sizeof(DXGI_SWAP_CHAIN_DESC));
-	swapDesc.BufferCount = m_SwapChainCount;
-	swapDesc.BufferDesc.Width  = m_ClientWidth;
-	swapDesc.BufferDesc.Height = m_ClientHeight;
-	swapDesc.BufferDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
-	swapDesc.BufferDesc.RefreshRate.Numerator = 60;
-	swapDesc.BufferDesc.RefreshRate.Denominator = 1;
-	swapDesc.BufferUsage  = DXGI_USAGE_RENDER_TARGET_OUTPUT | DXGI_USAGE_SHADER_INPUT;
-	swapDesc.OutputWindow = m_hAppWnd;
-	swapDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
-	swapDesc.Windowed = true;
-	swapDesc.SampleDesc.Count = 1;
-	swapDesc.SampleDesc.Quality = 0;
-	swapDesc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH; //alt enter full screen
-
-	HRESULT result;
-	for (int i = 0; i < numDriverTypes; ++i)
-	{
-		/*
-		D3D11CreateDeviceAndSwapChain(
-			nullptr,	// どのビデオアダプタを使用するか？既定ならばnullptrで、IDXGIAdapterのアドレスを渡す.
-			D3D_DRIVER_TYPE_HARDWARE,	// ドライバのタイプを渡す。これ以外は基本的にソフトウェア実装で、どうしてもという時やデバグ用に用いるべし.
-			nullptr,	// 上記をD3D_DRIVER_TYPE_SOFTWAREに設定した際に、その処理を行うDLLのハンドルを渡す。それ以外を指定している際には必ずnullptrを渡す.
-			0,			// 何らかのフラグを指定する。詳しくはD3D11_CREATE_DEVICE列挙型で検索検索ぅ.
-			nullptr,	// 実はここでD3D_FEATURE_LEVEL列挙型の配列を与える。nullptrにすることで上記featureと同等の内容の配列が使用される.
-			0,			// 上記引数で、自分で定義した配列を与えていた場合、その配列の要素数をここに記述する.
-			D3D11_SDK_VERSION,	// SDKのバージョン。必ずこの値.
-			&desc,		// DXGI_SWAP_CHAIN_DESC構造体のアドレスを設定する。ここで設定した構造愛に設定されているパラメータでSwapChainが作成される.
-			&swap_chain,	// 作成が成功した場合に、そのSwapChainのアドレスを格納するポインタ変数へのアドレス。ここで指定したポインタ変数経由でSwapChainを操作する.
-			&device,	// 上記とほぼ同様で、こちらにはDeviceのポインタ変数のアドレスを設定する.
-			&level,		// 実際に作成に成功したD3D_FEATURE_LEVELを格納するためのD3D_FEATURE_LEVEL列挙型変数のアドレスを設定する.
-			&context	// SwapChainやDeviceと同様に、こちらにはContextのポインタ変数のアドレスを設定する.
-		)		
-		*/
-
-		result = D3D11CreateDeviceAndSwapChain(
-			nullptr, 
-			driverTypes[i], 
-			nullptr, 
-			createDeviceFlags, 
-			featureLevels, 
-			numFeatureLevels, 
-			D3D11_SDK_VERSION, 
-			&swapDesc,
-			&m_pSwapChain, 
-			&m_pDevice,
-			&m_FeatureLevel, 
-			&m_pImmediateContext);
-
-		if (SUCCEEDED(result))
-		{
-			m_DriverType = driverTypes[i];
-			break;
-		}
-	}
-
-	if (FAILED(result))
-	{
-		OutputDebugString("\n Failed to create device and swap chain \n");
-		return false;
-	}
-
-	// バックバッファを取得.
-	ID3D11Texture2D* m_pBackBufferTexture = 0;
-	HR(m_pSwapChain->GetBuffer(NULL, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&m_pBackBufferTexture)));
-	HR(m_pDevice->CreateRenderTargetView(m_pBackBufferTexture, nullptr, &m_pRenderTargetView));
-	Memory::SafeRelease(m_pBackBufferTexture);
-
-	// bind render target view
-	m_pImmediateContext->OMSetRenderTargets(1, &m_pRenderTargetView, nullptr);
-
-	// viewport
-	m_Viewport.Width  = static_cast<float>(m_ClientWidth);
-	m_Viewport.Height = static_cast<float>(m_ClientHeight);
-	m_Viewport.TopLeftX = 0;
-	m_Viewport.TopLeftY = 0;
-	m_Viewport.MinDepth = 0.0f;
-	m_Viewport.MaxDepth = 1.0f;
-
-	m_pImmediateContext->RSSetViewports(1, &m_Viewport);
-	return true;
-}
 
 void DXApp::InitDirect3DInternal()
 {
 	//
+}
+
+HRESULT DXApp::CompileShaderFromFile(WCHAR * szFileName, LPCSTR szEntryPoint, LPCSTR szShaderModel, ID3DBlob ** ppBlobOut)
+{
+	HRESULT hr = S_OK;
+
+	DWORD dwShaderFlags = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
+#if defined(DEBUG)
+	dwShaderFlags |= D3DCOMPILE_DEBUG;
+#endif
+
+	ID3DBlob* pErrorBlob;
+	hr = D3DCompileFromFile(szFileName, NULL, NULL, szEntryPoint, szShaderModel, dwShaderFlags, 0, ppBlobOut, &pErrorBlob);
+	if (FAILED(hr))
+	{
+		if (pErrorBlob != NULL)
+		{
+			OutputDebugString("\n Failed pErrorBlob \n");
+		}
+		if (pErrorBlob) 
+		{
+			pErrorBlob->Release();
+		}
+		return hr;
+	}
+	if (pErrorBlob) 
+	{
+		pErrorBlob->Release();
+	}
+
+	return S_OK;
 }
 

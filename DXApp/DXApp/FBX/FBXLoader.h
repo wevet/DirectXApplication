@@ -2,8 +2,8 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <iostream>
 #include <unordered_map>
-
 #include <fbxsdk.h>
 #include <Windows.h>
 
@@ -133,6 +133,7 @@ namespace FBX
 		std::vector<FBXMeshNode> m_MeshNodeArray;
 
 		void InitalizeSdkObject(FbxManager* pManager, FbxScene* pScene);
+		void InitalizeSdkObject();
 		void TriangulateRecursive(FbxNode* pNode);
 
 		void SetupNode(FbxNode* pNode, std::string parentName);
