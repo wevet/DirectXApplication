@@ -64,7 +64,9 @@ protected:
 	UINT m_SwapChainCount;
 	std::string m_AppTitle;
 	DWORD m_WndStyle;
-
+	ID3D11VertexShader* m_VertexShader;
+	ID3D11VertexShader* m_InstancingVertexShader;
+	ID3D11PixelShader* m_PixelShader;
 
 protected:
 	HRESULT InitWindow();
