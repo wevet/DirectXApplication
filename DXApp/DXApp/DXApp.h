@@ -29,7 +29,7 @@ public:
 	// framework api
 	virtual bool Initialize();
 	virtual void Update(float dt) = 0;
-	virtual void Render(float dt) = 0;
+	virtual void Render();
 	virtual LRESULT MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 	struct ConstantBufferMatrix
@@ -37,7 +37,12 @@ public:
 		XMMATRIX world;
 		XMMATRIX view;
 		XMMATRIX proj;
-		XMMATRIX mvp;
+		XMMATRIX wvp;
+	};
+
+	struct SRVPerInstanceData
+	{
+		XMMATRIX World;
 	};
 
 protected:
@@ -49,29 +54,37 @@ protected:
 	ID3D11Device* m_pDevice;
 	ID3D11DeviceContext* m_pImmediateContext;
 	IDXGISwapChain* m_pSwapChain;
-	ID3D11RenderTargetView* m_pRenderTargetView;
-	ID3D11Texture2D* m_pDepthStencil;
-	ID3D11DepthStencilView* m_pDepthStencilView;
-	ID3D11DepthStencilState* m_pDepthStencilState;
 	D3D11_VIEWPORT m_Viewport;
 
-	XMMATRIX m_pWorld;
-	XMMATRIX m_pView;
-	XMMATRIX m_pProjection;
-	XMFLOAT4 m_pMeshColor = XMFLOAT4(0.7f, 0.7f, 0.7f, 1.0f);
-	ID3DUserDefinedAnnotation* m_pUserAnnotation = nullptr;
+	XMMATRIX m_World;
+	XMMATRIX m_View;
+	XMMATRIX m_Projection;
+	XMFLOAT4 m_MeshColor = XMFLOAT4(0.7f, 0.7f, 0.7f, 1.0f);
 
-	UINT m_SwapChainCount;
 	std::string m_AppTitle;
 	DWORD m_WndStyle;
+
+	ID3D11RenderTargetView*    m_pRenderTargetView;
+	ID3D11Texture2D*           m_pDepthStencil;
+	ID3D11DepthStencilView*    m_pDepthStencilView;
+	ID3D11DepthStencilState*   m_pDepthStencilState;
+	ID3DUserDefinedAnnotation* m_pUserAnnotation = nullptr;
 	ID3D11VertexShader* m_VertexShader;
 	ID3D11VertexShader* m_InstancingVertexShader;
-	ID3D11PixelShader* m_PixelShader;
+	ID3D11PixelShader*  m_PixelShader;
+	ID3D11Buffer* m_PcBuffer;
+	ID3D11Buffer* m_TransformStructuredBuffer;
+	ID3D11BlendState*         m_BlendState;
+	ID3D11RasterizerState*    m_RasterizerState;
+	ID3D11ShaderResourceView* m_TransformSRV;
+	const uint32_t m_InstanceMAX = 32;
+
 
 protected:
 	HRESULT InitWindow();
 	HRESULT InitDevice();
 	virtual HRESULT InitApp();
+	virtual HRESULT SetupTransformSRV();
 	virtual void InitDirect3DInternal();
 
 	HRESULT CompileShaderFromFile(WCHAR* szFileName, LPCSTR szEntryPoint, LPCSTR szShaderModel, ID3DBlob** ppBlobOut);

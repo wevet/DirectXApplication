@@ -25,9 +25,8 @@ DXApp::DXApp(HINSTANCE hInstance)
 	m_hAppWnd      = NULL;
 	m_AppTitle = "DirectX11 Application";
 	m_WndStyle = WS_OVERLAPPEDWINDOW;
-	m_SwapChainCount = 2;
-	g_pApp = this;
-	m_pDevice = nullptr;
+	g_pApp     = this;
+	m_pDevice  = nullptr;
 	m_pImmediateContext = nullptr;
 	m_pRenderTargetView = nullptr;
 	m_pSwapChain = nullptr;
@@ -58,7 +57,7 @@ int DXApp::Run()
 		else
 		{
 			Update(0.0f);
-			Render(0.0f);
+			Render();
 		}
 	}
 	return (int)msg.wParam;
@@ -166,7 +165,7 @@ HRESULT DXApp::InitDevice()
 	// swap chain‚Ì\¬Ý’è
 	DXGI_SWAP_CHAIN_DESC swapDesc;
 	ZeroMemory(&swapDesc, sizeof(DXGI_SWAP_CHAIN_DESC));
-	swapDesc.BufferCount = m_SwapChainCount;
+	swapDesc.BufferCount = 1;
 	swapDesc.BufferDesc.Width  = width;
 	swapDesc.BufferDesc.Height = height;
 	swapDesc.BufferDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
@@ -284,7 +283,7 @@ HRESULT DXApp::InitDevice()
 	m_Viewport.MaxDepth = 1.0f;
 	m_pImmediateContext->RSSetViewports(1, &m_Viewport);
 
-	m_pWorld = XMMatrixIdentity();
+	m_World = XMMatrixIdentity();
 
 	hr = InitApp();
 	if (FAILED(hr))
@@ -292,13 +291,28 @@ HRESULT DXApp::InitDevice()
 		OutputDebugString("\n Failed InitApp \n");
 		return hr;
 	}
-
-	return S_OK;
+	hr = SetupTransformSRV();
+	if (FAILED(hr))
+	{
+		OutputDebugString("\n Failed SetupTransformSRV \n");
+		return hr;
+	}
+	return hr;
 }
 
 HRESULT DXApp::InitApp()
 {
 	return E_NOTIMPL;
+}
+
+HRESULT DXApp::SetupTransformSRV()
+{
+	return E_NOTIMPL;
+}
+
+void DXApp::Render()
+{
+	//
 }
 
 LRESULT DXApp::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
