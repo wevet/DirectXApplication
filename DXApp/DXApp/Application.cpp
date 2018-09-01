@@ -279,7 +279,7 @@ void Application::Render()
 
 
 
-	OutputDebugString("\n NodeCountÅF%d \n", nodeCount);
+	//OutputDebugString("\n NodeCountÅF%d \n", nodeCount);
 	// allnode
 	for (int i = 0; i < nodeCount; ++i)
 	{

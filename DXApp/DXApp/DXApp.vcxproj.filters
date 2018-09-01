@@ -39,9 +39,6 @@
     <ClInclude Include="GameObject\Actor.h">
       <Filter>GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="FBX\FBXLoader.h">
       <Filter>FBX</Filter>
     </ClInclude>

@@ -142,7 +142,6 @@
     <ClInclude Include="FBX\FBXLoader.h" />
     <ClInclude Include="FBX\FBXRenderer.h" />
     <ClInclude Include="GameObject\Actor.h" />
-    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
