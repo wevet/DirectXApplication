@@ -1,5 +1,7 @@
+#include <tchar.h>
+#include <string>
 #include "FBXLoader.h"
-
+TCHAR DebugStr[512];
 
 using namespace FBX;
 
@@ -65,9 +67,19 @@ HRESULT FBXLoader::LoadFBX(const char * fileName, const EAxisSystem axis)
 		return E_FAIL;
 	}
 
+	m_Manager->GetIOSettings()->SetBoolProp(IMP_FBX_MATERIAL, true);
+	m_Manager->GetIOSettings()->SetBoolProp(IMP_FBX_TEXTURE, true);
+	m_Manager->GetIOSettings()->SetBoolProp(IMP_FBX_LINK, true);
+	m_Manager->GetIOSettings()->SetBoolProp(IMP_FBX_SHAPE, true);
+	m_Manager->GetIOSettings()->SetBoolProp(IMP_FBX_GOBO, true);
+	m_Manager->GetIOSettings()->SetBoolProp(IMP_FBX_ANIMATION, true);
+	m_Manager->GetIOSettings()->SetBoolProp(IMP_FBX_GLOBAL_SETTINGS, true);
+
+	// import
 	if (!m_Importer || !m_Importer->Import(m_Scene))
 	{
-		OutputDebugString("\n fail importer \n");
+		_stprintf_s(DebugStr, 512, _T("■□■ FBXファイルロードエラー. FileName: [ %s ] ■□■\n"), fileName);
+		OutputDebugString(DebugStr);
 		return E_FAIL;
 	}
 
@@ -205,6 +217,10 @@ void FBXLoader::SetupNode(FbxNode * pNode, std::string parentName)
 
 	FbxMesh* lMesh = pNode->GetMesh();
 
+	char str[512];
+	sprintf(str, meshNode.name.c_str());
+	OutputDebugString(str);
+
 	if (lMesh)
 	{
 		const int lVertexCount = lMesh->GetControlPointsCount();
@@ -249,11 +265,7 @@ void FBXLoader::SetFbxColor(FBXMaterialElement & destColor, const FbxDouble3 src
 	destColor.b = static_cast<float>(srcColor[2]);
 }
 
-FbxDouble3 FBXLoader::GetMaterialProperty(
-	const FbxSurfaceMaterial * pMaterial,
-	const char * pPropertyName,
-	const char * pFactorPropertyName,
-	FBXMaterialElement * pElement)
+FbxDouble3 FBXLoader::GetMaterialProperty(const FbxSurfaceMaterial * pMaterial, const char * pPropertyName, const char * pFactorPropertyName, FBXMaterialElement * pElement)
 {
 	pElement->materialElementType = FBXMaterialElement::MaterialElemementType::ELEMENT_NONE;
 
