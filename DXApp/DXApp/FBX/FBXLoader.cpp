@@ -173,14 +173,20 @@ void FBXLoader::TriangulateRecursive(FbxNode * pNode)
 
 	if (lNodeAttribute)
 	{
-		if (lNodeAttribute->GetAttributeType() == FbxNodeAttribute::eMesh ||
-			lNodeAttribute->GetAttributeType() == FbxNodeAttribute::eNurbs ||
-			lNodeAttribute->GetAttributeType() == FbxNodeAttribute::eNurbsSurface ||
-			lNodeAttribute->GetAttributeType() == FbxNodeAttribute::ePatch)
+		if (lNodeAttribute->GetAttributeType() == FbxNodeAttribute::eMesh)
 		{
 			FbxGeometryConverter lConverter(pNode->GetFbxManager());
 			lConverter.Triangulate(m_Scene, true);
 		}
+
+		//if (lNodeAttribute->GetAttributeType() == FbxNodeAttribute::eMesh ||
+		//	lNodeAttribute->GetAttributeType() == FbxNodeAttribute::eNurbs ||
+		//	lNodeAttribute->GetAttributeType() == FbxNodeAttribute::eNurbsSurface ||
+		//	lNodeAttribute->GetAttributeType() == FbxNodeAttribute::ePatch) 
+		//{
+		//	FbxGeometryConverter lConverter(pNode->GetFbxManager());
+		//	lConverter.Triangulate(m_Scene, true);
+		//}
 	}
 
 	const int lChildCount = pNode->GetChildCount();
@@ -217,15 +223,17 @@ void FBXLoader::SetupNode(FbxNode * pNode, std::string parentName)
 
 	FbxMesh* lMesh = pNode->GetMesh();
 
-	char str[512];
-	sprintf(str, meshNode.name.c_str());
-	OutputDebugString(str);
+	//char str[512];
+	//sprintf(str, meshNode.name.c_str());
+	//OutputDebugString(str);
+	_stprintf_s(DebugStr, 512, _T("■□■ MeshNode: [ %s ] ■□■\n"), meshNode.name.c_str());
+	OutputDebugString(DebugStr);
 
 	if (lMesh)
 	{
 		const int lVertexCount = lMesh->GetControlPointsCount();
 
-		if (lVertexCount>0)
+		if (lVertexCount > 0)
 		{
 			// 頂点があるならノードにコピー
 			CopyVertexData(lMesh, &meshNode);
