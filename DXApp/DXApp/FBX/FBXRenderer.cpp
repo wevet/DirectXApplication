@@ -76,7 +76,7 @@ HRESULT FBXRenderer::CreateNodes(ID3D11Device * pd3dDevice)
 	_stprintf_s(DebugStr, 512, _T("■□■ nodeCoount: [ %d ] ■□■\n"), nodeCoount);
 	OutputDebugString(DebugStr);
 
-	for (size_t i = 0; i < nodeCoount; i++)
+	for (int i = 0; i < nodeCoount; ++i)
 	{
 		MeshNode meshNode;
 		FBXMeshNode fbxNode = m_Loader->GetNode(static_cast<unsigned int>(i));
@@ -109,13 +109,18 @@ HRESULT FBXRenderer::CreateVertexBuffer(ID3D11Device* pd3dDevice, ID3D11Buffer**
 	D3D11_BUFFER_DESC bd;
 	ZeroMemory(&bd, sizeof(bd));
 	bd.Usage = D3D11_USAGE_DEFAULT;
-	bd.ByteWidth = stride * vertexCount;
 	bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	bd.ByteWidth = stride * vertexCount;
 	bd.CPUAccessFlags = 0;
+	bd.MiscFlags = 0;
+	bd.StructureByteStride = 0;
+
 	D3D11_SUBRESOURCE_DATA InitData;
 	ZeroMemory(&InitData, sizeof(InitData));
-
 	InitData.pSysMem = pVertices;
+	InitData.SysMemPitch = 0;
+	InitData.SysMemSlicePitch = 0;
+
 	hr = pd3dDevice->CreateBuffer(&bd, &InitData, pBuffer);
 	if (FAILED(hr))
 	{
@@ -155,6 +160,7 @@ HRESULT FBXRenderer::CreateIndexBuffer(ID3D11Device* pd3dDevice, ID3D11Buffer** 
 
 HRESULT FBXRenderer::VertexConstruction(ID3D11Device * pd3dDevice, FBXMeshNode & fbxNode, MeshNode & meshNode)
 {
+
 	meshNode.vertexCount = static_cast<DWORD>(fbxNode.positionArray.size());
 	if (!pd3dDevice || meshNode.vertexCount == 0)
 	{
@@ -162,11 +168,18 @@ HRESULT FBXRenderer::VertexConstruction(ID3D11Device * pd3dDevice, FBXMeshNode &
 	}
 	HRESULT hr = S_OK;
 
+	_stprintf_s(DebugStr, 512, _T("■□■ VertexConstruction vertex count: [ %d ] ■□■\n"), meshNode.vertexCount);
+	OutputDebugString(DebugStr);
+	
 	VertexData* pV = new VertexData[meshNode.vertexCount];
 
-	for (size_t i = 0; i<meshNode.vertexCount; i++)
+	for (size_t i = 0; i < meshNode.vertexCount; i++)
 	{
 		FbxVector4 v = fbxNode.positionArray[i];
+
+		_stprintf_s(DebugStr, 512, _T("■□■ FbxVector4: [ %lf, %lf, %lf ] ■□■\n"), (float)v.mData[0], (float)v.mData[1], (float)v.mData[2]);
+		OutputDebugString(DebugStr);
+
 		pV[i].vPos = XMFLOAT3(
 			(float)v.mData[0],
 			(float)v.mData[1],
@@ -181,8 +194,6 @@ HRESULT FBXRenderer::VertexConstruction(ID3D11Device * pd3dDevice, FBXMeshNode &
 
 		if ((float)fbxNode.texcoordArray.size() > 0)
 		{
-			// 今回はUV1つしかやらない
-			// UVのV値反転
 			pV[i].vTexcoord = XMFLOAT2(
 				(float)abs(1.0f - fbxNode.texcoordArray[i].mData[0]),
 				(float)abs(1.0f - fbxNode.texcoordArray[i].mData[1]));
@@ -205,9 +216,6 @@ HRESULT FBXRenderer::VertexConstruction(ID3D11Device * pd3dDevice, FBXMeshNode &
 
 HRESULT FBXRenderer::MaterialConstruction(ID3D11Device * pd3dDevice, FBXMeshNode & fbxNode, MeshNode & meshNode)
 {
-	_stprintf_s(DebugStr, 512, _T("■□■ materialArray size: [ %d ] ■□■\n"), fbxNode.materialArray.size());
-	OutputDebugString(DebugStr);
-
 	if (!pd3dDevice || fbxNode.materialArray.size() == 0)
 	{
 		return E_FAIL;
@@ -215,31 +223,34 @@ HRESULT FBXRenderer::MaterialConstruction(ID3D11Device * pd3dDevice, FBXMeshNode
 
 	HRESULT hr = S_OK;
 
-	// 先頭のマテリアルだけ使う
-	FBXMaterialNode fbxMaterial = fbxNode.materialArray[0];
-	meshNode.materialData.specularPower = fbxMaterial.shininess;
-	meshNode.materialData.TransparencyFactor = fbxMaterial.transparencyFactor;
+	_stprintf_s(DebugStr, 512, _T("■□■ materialArray size: [ %zd ] ■□■\n"), fbxNode.materialArray.size());
+	OutputDebugString(DebugStr);
 
-	meshNode.materialData.ambient = XMFLOAT4(fbxMaterial.ambient.r, fbxMaterial.ambient.g, fbxMaterial.ambient.b, fbxMaterial.ambient.a);
-	meshNode.materialData.diffuse = XMFLOAT4(fbxMaterial.diffuse.r, fbxMaterial.diffuse.g, fbxMaterial.diffuse.b, fbxMaterial.diffuse.a);
-	meshNode.materialData.specular = XMFLOAT4(fbxMaterial.specular.r, fbxMaterial.specular.g, fbxMaterial.specular.b, fbxMaterial.specular.a);
-	meshNode.materialData.emmisive = XMFLOAT4(fbxMaterial.emmisive.r, fbxMaterial.emmisive.g, fbxMaterial.emmisive.b, fbxMaterial.emmisive.a);
-
-
-	// Diffuseだけからテクスチャを読み込む
-	if (fbxMaterial.diffuse.textureSetArray.size() > 0)
+	for (int i = 0; i < fbxNode.materialArray.size(); ++i)
 	{
-		TextureSet::const_iterator it = fbxMaterial.diffuse.textureSetArray.begin();
-		if (it->second.size())
-		{
-			std::string path = it->second[0];
-			WCHAR wstr[512];
-			size_t wLen = 0;
-			mbstowcs_s(&wLen, wstr, path.size() + 1, path.c_str(), _TRUNCATE);
+		FBXMaterialNode fbxMaterial = fbxNode.materialArray[i];
+		meshNode.materialData.specularPower = fbxMaterial.shininess;
+		meshNode.materialData.TransparencyFactor = fbxMaterial.transparencyFactor;
+		meshNode.materialData.ambient = XMFLOAT4(fbxMaterial.ambient.r, fbxMaterial.ambient.g, fbxMaterial.ambient.b, fbxMaterial.ambient.a);
+		meshNode.materialData.diffuse = XMFLOAT4(fbxMaterial.diffuse.r, fbxMaterial.diffuse.g, fbxMaterial.diffuse.b, fbxMaterial.diffuse.a);
+		meshNode.materialData.specular = XMFLOAT4(fbxMaterial.specular.r, fbxMaterial.specular.g, fbxMaterial.specular.b, fbxMaterial.specular.a);
+		meshNode.materialData.emmisive = XMFLOAT4(fbxMaterial.emmisive.r, fbxMaterial.emmisive.g, fbxMaterial.emmisive.b, fbxMaterial.emmisive.a);
 
-			_stprintf_s(DebugStr, 512, _T("■□■ szFileName: [ %s ] ■□■\n"), wstr);
-			OutputDebugString(DebugStr);
-			CreateDDSTextureFromFile(pd3dDevice, wstr, NULL, &meshNode.materialData.pSRV, 0);// DXTexから
+		// Diffuseだけからテクスチャを読み込む
+		if (fbxMaterial.diffuse.textureSetArray.size() > 0)
+		{
+			TextureSet::const_iterator it = fbxMaterial.diffuse.textureSetArray.begin();
+			if (it->second.size())
+			{
+				std::string path = it->second[0];
+				WCHAR wstr[512];
+				size_t wLen = 0;
+				mbstowcs_s(&wLen, wstr, path.size() + 1, path.c_str(), _TRUNCATE);
+
+				_stprintf_s(DebugStr, 512, _T("■□■ szFileName: [ %ls ] ■□■\n"), wstr);
+				OutputDebugString(DebugStr);
+				CreateDDSTextureFromFile(pd3dDevice, wstr, NULL, &meshNode.materialData.pSRV, 0);// DXTexから
+			}
 		}
 	}
 

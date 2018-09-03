@@ -37,7 +37,7 @@ HRESULT Application::InitApp()
 {
 
 	HRESULT hr = S_OK;
-	const char* fileName = "Assets/FBX/Miku_default/sample.fbx";
+	const char* fileName = "Assets/FBX/Miku_default/Miku.fbx";
 	m_FBXRenderer = new FBXRenderer;
 	hr = m_FBXRenderer->LoadFBX(fileName, m_pDevice);
 
@@ -96,10 +96,9 @@ HRESULT Application::InitApp()
 		{ "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
-
 	UINT numElements = ARRAYSIZE(layout);
 
-	// todo
+	// create input layout
 	hr = m_FBXRenderer->CreateInputLayout(m_pDevice, pVSBlob->GetBufferPointer(), pVSBlob->GetBufferSize(), layout, numElements);
 	Memory::SafeRelease(pVSBlob);
 	if (FAILED(hr))
@@ -210,11 +209,6 @@ void Application::Update(float dt)
 
 void Application::Render()
 {
-	// draw spritebatch
-	//spriteBatch->Begin();
-	//spriteBatch->Draw(m_pTexture.Get(), m_pos);
-	//spriteBatch->End();
-
 	RECT rect;
 	GetClientRect(m_hAppWnd, &rect);
 	UINT width = rect.right - rect.left;
@@ -230,7 +224,7 @@ void Application::Render()
 	m_View = XMMatrixLookAtLH(Eye, At, Up);
 
 	// Initialize the projection matrix
-	m_Projection = XMMatrixPerspectiveFovLH(XM_PIDIV4, width / (float)height, 0.01f, 10000.0f);
+	m_Projection = XMMatrixPerspectiveFovLH(XM_PIDIV4, (float)width / (float)height, 0.01f, 800.0f);
 
 	// Update our time
 	static float t = 0.0f;
@@ -278,9 +272,6 @@ void Application::Render()
 	m_pImmediateContext->VSSetConstantBuffers(0, 1, &m_PcBuffer);
 	m_pImmediateContext->PSSetShader(m_PixelShader, NULL, 0);
 
-
-
-	//OutputDebugString("\n NodeCountÅF%d \n", nodeCount);
 	// allnode
 	for (int i = 0; i < nodeCount; ++i)
 	{
@@ -328,7 +319,7 @@ void Application::Render()
 	}
 
 	// Text
-	WCHAR wstr[512];
+	//WCHAR wstr[512];
 	//g_pSpriteBatch->Begin();
 	//g_pFont->DrawString(g_pSpriteBatch, L"FBX Loader : F2 Change Render Mode", XMFLOAT2(0, 0), DirectX::Colors::Yellow, 0, XMFLOAT2(0, 0), 0.5f);
 
@@ -347,8 +338,7 @@ void Application::Render()
 	m_pImmediateContext->PSSetShader(NULL, NULL, 0);
 
 	DXApp::Render();
-	//m_pImmediateContext->ClearRenderTargetView(m_pRenderTargetView, Colors::Black);
-	HR(m_pSwapChain->Present(0, 0));
+	m_pSwapChain->Present(0, 0);
 }
 
 void Application::SetMatrix()
@@ -363,7 +353,7 @@ void Application::SetMatrix()
 
 	SRVPerInstanceData*	pSrvInstanceData = (SRVPerInstanceData*)MappedResource.pData;
 
-	for (uint32_t i = 0; i<count; i++)
+	for (uint32_t i = 0; i < count; ++i)
 	{
 		mat = XMMatrixTranslation(0, 0, i*60.0f + offset);
 		pSrvInstanceData[i].World = (mat);

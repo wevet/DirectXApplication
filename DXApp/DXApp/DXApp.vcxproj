@@ -202,8 +202,8 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\FBX\Miku_default\Miku_default.fbx" />
-    <None Include="Assets\FBX\Miku_default\sample.fbx" />
+    <None Include="Assets\FBX\Miku_default\Miku.fbx" />
+    <None Include="Assets\FBX\model1.fbx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

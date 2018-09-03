@@ -89,10 +89,10 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\FBX\Miku_default\Miku_default.fbx">
+    <None Include="Assets\FBX\model1.fbx">
       <Filter>リソース ファイル</Filter>
     </None>
-    <None Include="Assets\FBX\Miku_default\sample.fbx">
+    <None Include="Assets\FBX\Miku_default\Miku.fbx">
       <Filter>リソース ファイル</Filter>
     </None>
   </ItemGroup>
