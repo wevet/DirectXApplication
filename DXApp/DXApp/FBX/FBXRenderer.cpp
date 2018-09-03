@@ -1,6 +1,7 @@
 #include "FBXRenderer.h"
 #include <locale.h>
 #include <tchar.h>
+#include <string>
 #include "../DXUtil.h"
 #include "DDSTextureLoader.h"
 
@@ -72,7 +73,10 @@ HRESULT FBXRenderer::CreateNodes(ID3D11Device * pd3dDevice)
 		return E_FAIL;
 	}
 
-	for (size_t i = 0; i<nodeCoount; i++)
+	_stprintf_s(DebugStr, 512, _T("■□■ nodeCoount: [ %d ] ■□■\n"), nodeCoount);
+	OutputDebugString(DebugStr);
+
+	for (size_t i = 0; i < nodeCoount; i++)
 	{
 		MeshNode meshNode;
 		FBXMeshNode fbxNode = m_Loader->GetNode(static_cast<unsigned int>(i));
@@ -201,6 +205,9 @@ HRESULT FBXRenderer::VertexConstruction(ID3D11Device * pd3dDevice, FBXMeshNode &
 
 HRESULT FBXRenderer::MaterialConstruction(ID3D11Device * pd3dDevice, FBXMeshNode & fbxNode, MeshNode & meshNode)
 {
+	_stprintf_s(DebugStr, 512, _T("■□■ materialArray size: [ %d ] ■□■\n"), fbxNode.materialArray.size());
+	OutputDebugString(DebugStr);
+
 	if (!pd3dDevice || fbxNode.materialArray.size() == 0)
 	{
 		return E_FAIL;
@@ -220,20 +227,18 @@ HRESULT FBXRenderer::MaterialConstruction(ID3D11Device * pd3dDevice, FBXMeshNode
 
 
 	// Diffuseだけからテクスチャを読み込む
-	if (fbxMaterial.diffuse.textureSetArray.size()>0)
+	if (fbxMaterial.diffuse.textureSetArray.size() > 0)
 	{
 		TextureSet::const_iterator it = fbxMaterial.diffuse.textureSetArray.begin();
 		if (it->second.size())
 		{
 			std::string path = it->second[0];
-
-			// June 2010の時から変更
-			// hr = D3DX11CreateShaderResourceViewFromFileA( pd3dDevice,path.c_str(), NULL, NULL, &meshNode.materialData.pSRV, NULL );
-			// Todo: 決め打ちよくないけど暫定対応
-			// FBXのSDKだと文字列はcharなんだけど、こっちではwcharにしないといけない...
 			WCHAR wstr[512];
 			size_t wLen = 0;
 			mbstowcs_s(&wLen, wstr, path.size() + 1, path.c_str(), _TRUNCATE);
+
+			_stprintf_s(DebugStr, 512, _T("■□■ szFileName: [ %s ] ■□■\n"), wstr);
+			OutputDebugString(DebugStr);
 			CreateDDSTextureFromFile(pd3dDevice, wstr, NULL, &meshNode.materialData.pSRV, 0);// DXTexから
 		}
 	}
@@ -400,7 +405,9 @@ HRESULT FBXRenderer::RenderNodeInstancingIndirect(ID3D11DeviceContext* pImmediat
 {
 	size_t nodeCount = m_MeshNodeArray.size();
 	if (nodeCount == 0 || nodeCount <= nodeId)
+	{
 		return S_OK;
+	}
 
 	HRESULT hr = S_OK;
 	MeshNode* node = &m_MeshNodeArray[nodeId];

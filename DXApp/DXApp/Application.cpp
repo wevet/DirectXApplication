@@ -37,7 +37,7 @@ HRESULT Application::InitApp()
 {
 
 	HRESULT hr = S_OK;
-	const char* fileName = "Assets/FBX/Miku_default/Miku_default.fbx";
+	const char* fileName = "Assets/FBX/Miku_default/sample.fbx";
 	m_FBXRenderer = new FBXRenderer;
 	hr = m_FBXRenderer->LoadFBX(fileName, m_pDevice);
 

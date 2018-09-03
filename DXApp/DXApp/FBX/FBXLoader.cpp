@@ -1,7 +1,6 @@
 #include <tchar.h>
 #include <string>
 #include "FBXLoader.h"
-TCHAR DebugStr[512];
 
 using namespace FBX;
 
@@ -173,20 +172,20 @@ void FBXLoader::TriangulateRecursive(FbxNode * pNode)
 
 	if (lNodeAttribute)
 	{
-		if (lNodeAttribute->GetAttributeType() == FbxNodeAttribute::eMesh)
+		if (lNodeAttribute->GetAttributeType() == FbxNodeAttribute::eMesh ||
+			lNodeAttribute->GetAttributeType() == FbxNodeAttribute::eNurbs ||
+			lNodeAttribute->GetAttributeType() == FbxNodeAttribute::eNurbsSurface ||
+			lNodeAttribute->GetAttributeType() == FbxNodeAttribute::ePatch) 
 		{
 			FbxGeometryConverter lConverter(pNode->GetFbxManager());
 			lConverter.Triangulate(m_Scene, true);
 		}
 
-		//if (lNodeAttribute->GetAttributeType() == FbxNodeAttribute::eMesh ||
-		//	lNodeAttribute->GetAttributeType() == FbxNodeAttribute::eNurbs ||
-		//	lNodeAttribute->GetAttributeType() == FbxNodeAttribute::eNurbsSurface ||
-		//	lNodeAttribute->GetAttributeType() == FbxNodeAttribute::ePatch) 
-		//{
-		//	FbxGeometryConverter lConverter(pNode->GetFbxManager());
-		//	lConverter.Triangulate(m_Scene, true);
-		//}
+		if (lNodeAttribute->GetAttributeType() == FbxNodeAttribute::eMesh)
+		{
+			_stprintf_s(DebugStr, 512, _T("Å°Å†Å° NodeMeshName: [ %s ] Å°Å†Å°\n"), pNode->GetName());
+			OutputDebugString(DebugStr);
+		}
 	}
 
 	const int lChildCount = pNode->GetChildCount();
@@ -222,12 +221,6 @@ void FBXLoader::SetupNode(FbxNode * pNode, std::string parentName)
 	ZeroMemory(&meshNode.elements, sizeof(MeshElement));
 
 	FbxMesh* lMesh = pNode->GetMesh();
-
-	//char str[512];
-	//sprintf(str, meshNode.name.c_str());
-	//OutputDebugString(str);
-	_stprintf_s(DebugStr, 512, _T("Å°Å†Å° MeshNode: [ %s ] Å°Å†Å°\n"), meshNode.name.c_str());
-	OutputDebugString(DebugStr);
 
 	if (lMesh)
 	{

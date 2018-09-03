@@ -172,6 +172,10 @@ namespace FBX
 		size_t GetNodesCount() { return m_MeshNodeArray.size(); };
 
 		FBXMeshNode& GetNode(const unsigned int id);
+
+	private:
+		TCHAR DebugStr[512];
+
 	};
 
 

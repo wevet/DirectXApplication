@@ -179,6 +179,10 @@ namespace FBX
 		{
 			return m_MeshNodeArray[id].materialData;
 		};
+
+	private:
+		TCHAR DebugStr[512];
+
 	};
 
 }
