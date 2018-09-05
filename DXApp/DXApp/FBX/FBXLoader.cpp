@@ -62,9 +62,15 @@ HRESULT FBXLoader::LoadFBX(const char * fileName, const EAxisSystem axis)
 
 	if (!m_Importer || !m_Importer->Initialize(fileName, lFileFormat))
 	{
-		OutputDebugString("\n error importer \n");
+		OutputDebugString("\n Error: Unable to create FBX initialize! \n");
 		return E_FAIL;
 	}
+
+	// FBX ファイルのバージョン取得。 
+	int major, minor, revision;
+	m_Importer->GetFileVersion(major, minor, revision);
+	_stprintf_s(DebugStr, 512, _T("\n FBX VERSION %d %d %d \n"), major, minor, revision);
+	OutputDebugString(DebugStr);
 
 	m_Manager->GetIOSettings()->SetBoolProp(IMP_FBX_MATERIAL, true);
 	m_Manager->GetIOSettings()->SetBoolProp(IMP_FBX_TEXTURE, true);
@@ -82,17 +88,12 @@ HRESULT FBXLoader::LoadFBX(const char * fileName, const EAxisSystem axis)
 		return E_FAIL;
 	}
 
-	FbxAxisSystem OurAxisSystem = FbxAxisSystem::DirectX;
-	if (axis == EAxisSystem::OpenGL)
-	{
-		OurAxisSystem = FbxAxisSystem::OpenGL;
-	}
-
-	// DirectX系
+	// Convert Axis System to what is used in this example, if needed
 	FbxAxisSystem SceneAxisSystem = m_Scene->GetGlobalSettings().GetAxisSystem();
+	FbxAxisSystem OurAxisSystem(FbxAxisSystem::OpenGL);
 	if (SceneAxisSystem != OurAxisSystem)
 	{
-		FbxAxisSystem::DirectX.ConvertScene(m_Scene);
+		OurAxisSystem.ConvertScene(m_Scene);
 	}
 
 	FbxSystemUnit SceneSystemUnit = m_Scene->GetGlobalSettings().GetSystemUnit();
@@ -102,7 +103,6 @@ HRESULT FBXLoader::LoadFBX(const char * fileName, const EAxisSystem axis)
 		FbxSystemUnit::cm.ConvertScene(m_Scene);
 	}
 
-	// 三角形化(三角形以外のデータでもコレで安心)
 	TriangulateRecursive(m_Scene->GetRootNode());
 	Setup();
 	return hr;
@@ -126,7 +126,7 @@ void FBXLoader::InitalizeSdkObject(FbxManager * pManager, FbxScene * pScene)
 	FbxString lPath = FbxGetApplicationDirectory();
 	pManager->LoadPluginsDirectory(lPath.Buffer());
 
-	pScene = FbxScene::Create(pManager, "My Scene");
+	pScene = FbxScene::Create(pManager, "MyScene");
 	if (!pScene)
 	{
 		OutputDebugString("Error: Unable to create FBX scene!\n");
@@ -235,7 +235,7 @@ void FBXLoader::SetupNode(FbxNode * pNode, std::string parentName)
 
 	// マテリアル
 	const int lMaterialCount = pNode->GetMaterialCount();
-	for (int i = 0; i<lMaterialCount; i++)
+	for (int i = 0; i < lMaterialCount; i++)
 	{
 		FbxSurfaceMaterial* mat = pNode->GetMaterial(i);
 		if (!mat)
@@ -247,7 +247,6 @@ void FBXLoader::SetupNode(FbxNode * pNode, std::string parentName)
 		meshNode.materialArray.push_back(destMat);
 	}
 
-	//
 	ComputeNodeMatrix(pNode, &meshNode);
 	m_MeshNodeArray.push_back(meshNode);
 
@@ -296,7 +295,9 @@ FbxDouble3 FBXLoader::GetMaterialProperty(const FbxSurfaceMaterial * pMaterial, 
 		{
 			FbxFileTexture* lFileTexture = lProperty.GetSrcObject<FbxFileTexture>(i);
 			if (!lFileTexture)
+			{
 				continue;
+			}
 
 			FbxString uvsetName = lFileTexture->UVSet.Get();
 			std::string uvSetString = uvsetName.Buffer();
@@ -314,7 +315,7 @@ FbxDouble3 FBXLoader::GetMaterialProperty(const FbxSurfaceMaterial * pMaterial, 
 
 			const int lTextureFileCount = lLayeredTexture->GetSrcObjectCount<FbxFileTexture>();
 
-			for (int j = 0; j<lTextureFileCount; j++)
+			for (int j = 0; j < lTextureFileCount; j++)
 			{
 				FbxFileTexture* lFileTexture = lLayeredTexture->GetSrcObject<FbxFileTexture>(j);
 				if (!lFileTexture)
@@ -351,17 +352,23 @@ void FBXLoader::CopyMatrialData(FbxSurfaceMaterial * mat, FBXMaterialNode * dest
 {
 	if (!mat)
 	{
+		OutputDebugString("Not Found Original Material");
 		return;
 	}
 
+	// LambertかPhongか
 	if (mat->GetClassId().Is(FbxSurfaceLambert::ClassId))
 	{
 		destMat->materialType = FBXMaterialNode::MaterialType::MATERIAL_LAMBERT;
 	}
+	// Phongにダウンキャスト
 	else if (mat->GetClassId().Is(FbxSurfacePhong::ClassId))
 	{
 		destMat->materialType = FBXMaterialNode::MaterialType::MATERIAL_PHONG;
 	}
+
+	_stprintf_s(DebugStr, 512, _T("■□■ GetClassId: [ %d ] ■□■\n"), mat->GetClassId());
+	OutputDebugString(DebugStr);
 
 	const FbxDouble3 lEmissive = GetMaterialProperty(mat, FbxSurfaceMaterial::sEmissive, FbxSurfaceMaterial::sEmissiveFactor, &destMat->emmisive);
 	SetFbxColor(destMat->emmisive, lEmissive);
@@ -375,7 +382,6 @@ void FBXLoader::CopyMatrialData(FbxSurfaceMaterial * mat, FBXMaterialNode * dest
 	const FbxDouble3 lSpecular = GetMaterialProperty(mat, FbxSurfaceMaterial::sSpecular, FbxSurfaceMaterial::sSpecularFactor, &destMat->specular);
 	SetFbxColor(destMat->specular, lSpecular);
 
-	//
 	FbxProperty lTransparencyFactorProperty = mat->FindProperty(FbxSurfaceMaterial::sTransparencyFactor);
 	if (lTransparencyFactorProperty.IsValid())
 	{
@@ -460,11 +466,11 @@ void FBXLoader::CopyVertexData(FbxMesh * pMesh, FBXMeshNode * meshNode)
 	for (int uv = 0; uv<numUVSet; uv++)
 	{
 		meshNode->uvsetID[uvsetName.GetStringAt(uv)] = uv;
-		for (int i = 0; i<lPolygonCount; i++)
+		for (int i = 0; i < lPolygonCount; i++)
 		{
 			int lPolygonsize = pMesh->GetPolygonSize(i);
 
-			for (int pol = 0; pol<lPolygonsize; pol++)
+			for (int pol = 0; pol < lPolygonsize; pol++)
 			{
 				FbxString name = uvsetName.GetStringAt(uv);
 				FbxVector2 texCoord;

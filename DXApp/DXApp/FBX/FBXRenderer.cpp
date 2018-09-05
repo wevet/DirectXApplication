@@ -177,8 +177,8 @@ HRESULT FBXRenderer::VertexConstruction(ID3D11Device * pd3dDevice, FBXMeshNode &
 	{
 		FbxVector4 v = fbxNode.positionArray[i];
 
-		_stprintf_s(DebugStr, 512, _T("¡ ¡ FbxVector4: [ %lf, %lf, %lf ] ¡ ¡\n"), (float)v.mData[0], (float)v.mData[1], (float)v.mData[2]);
-		OutputDebugString(DebugStr);
+		//_stprintf_s(DebugStr, 512, _T("¡ ¡ FbxVector4: [ %lf, %lf, %lf ] ¡ ¡\n"), (float)v.mData[0], (float)v.mData[1], (float)v.mData[2]);
+		//OutputDebugString(DebugStr);
 
 		pV[i].vPos = XMFLOAT3(
 			(float)v.mData[0],
@@ -240,6 +240,7 @@ HRESULT FBXRenderer::MaterialConstruction(ID3D11Device * pd3dDevice, FBXMeshNode
 		if (fbxMaterial.diffuse.textureSetArray.size() > 0)
 		{
 			TextureSet::const_iterator it = fbxMaterial.diffuse.textureSetArray.begin();
+
 			if (it->second.size())
 			{
 				std::string path = it->second[0];
@@ -252,6 +253,7 @@ HRESULT FBXRenderer::MaterialConstruction(ID3D11Device * pd3dDevice, FBXMeshNode
 				CreateDDSTextureFromFile(pd3dDevice, wstr, NULL, &meshNode.materialData.pSRV, 0);// DXTex‚©‚ç
 			}
 		}
+
 	}
 
 	// samplerstate
