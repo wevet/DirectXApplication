@@ -46,7 +46,7 @@ bool FBXLoaderApp::Initialize()
 	mCbvSrvDescriptorSize = md3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
 	BuildFbxGeometry();
-	BuildFbxObjectGeometry();
+	//BuildFbxObjectGeometry();
 	LoadTextures();
 	BuildRootSignature();
 	BuildShadersAndInputLayout();
@@ -316,24 +316,6 @@ void FBXLoaderApp::UpdateAnimationCBs(const GameTimer & gt)
 	currSkinnedCB->CopyData(0, skinnedConstants);
 }
 
-void FBXLoaderApp::PrintMatrix(const wstring& Name, const int& i, const XMMATRIX &M)
-{
-	wstring text = Name + to_wstring(i) + L"\n";
-	OutputDebugString(text.c_str());
-
-	for (int j = 0; j < 4; ++j)
-	{
-		for (int k = 0; k < 4; ++k)
-		{
-			wstring text = to_wstring(M.r[j].m128_f32[k]) + L" ";
-			OutputDebugString(text.c_str());
-		}
-		wstring text = L"\n";
-		OutputDebugString(text.c_str());
-
-	}
-}
-
 void FBXLoaderApp::UpdateObjectShadows(const GameTimer& gt)
 {
 	int i = 0;
@@ -347,9 +329,6 @@ void FBXLoaderApp::UpdateObjectShadows(const GameTimer& gt)
 		XMMATRIX shadowOffsetY = XMMatrixTranslation(0.0f, 0.001f, 0.0f);
 		XMStoreFloat4x4(&e->World, shadowWorld * S * shadowOffsetY);
 		e->NumFramesDirty = gNumFrameResources;
-
-		//printMatrix(L"shadow ", i, XMLoadFloat4x4(&e->World));
-
 		++i;
 	}
 }
@@ -761,7 +740,7 @@ void FBXLoaderApp::BuildShapeGeometry()
 	const UINT vbByteSize = (UINT)vertices.size() * sizeof(Vertex);
 	const UINT ibByteSize = (UINT)indices.size() * sizeof(uint16_t);
 
-	auto geo = make_unique<MeshGeometry>();
+	unique_ptr<MeshGeometry> geo = make_unique<MeshGeometry>();
 	geo->Name = "shapeGeo";
 
 	ThrowIfFailed(D3DCreateBlob(vbByteSize, &geo->VertexBufferCPU));

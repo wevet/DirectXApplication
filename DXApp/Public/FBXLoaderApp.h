@@ -208,8 +208,5 @@ private:
 
 	Light mMainLight;
 	Camera mCamera;
-
 	POINT mLastMousePos;
-
-	void PrintMatrix(const wstring& Name, const int& i, const XMMATRIX &M);
 };
