@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Private\Camera.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\d3dUtil.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\DDSTextureLoader.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\DXApp.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\FbxLoader.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\FBXLoaderApp.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\FrameResource.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\GameTimer.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\GeometryGenerator.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\MathHelper.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\SkinnedData.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\TextureLoader.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Public\Camera.h">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\d3dUtil.h">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\d3dx12.h">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\DDSTextureLoader.h">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\DXApp.h">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\FbxLoader.h">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\FBXLoaderApp.h">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\FrameResource.h">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\GameTimer.h">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\GeometryGenerator.h">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\MathHelper.h">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\SkinnedData.h">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\TextureLoader.h">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\UploadBuffer.h">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\VertexHash.h">
+      <Filter>Public</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Public">
+      <UniqueIdentifier>{bba426a1-b8a1-4d75-a311-6993352843c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Private">
+      <UniqueIdentifier>{6a24e97c-00dc-47e8-a044-b6839d70b285}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
