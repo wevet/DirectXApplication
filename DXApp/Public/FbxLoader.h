@@ -44,7 +44,7 @@ public:
 	HRESULT LoadFBX(AnimationClip & animation, const string& ClipName, string fileName);
 
 	bool LoadTXT(vector<SkinnedVertex>& outVertexVector, vector<uint16_t>& outIndexVector, SkinnedData& outSkinnedData, const string& clipName, vector<Material>& outMaterial, string fileName);
-	bool LoadTXT(vector<Vertex>& outVertexVector,  vector<uint16_t>& outIndexVector, vector<Material>& outMaterial, string fileName);
+	bool LoadTXT(vector<Vertex>& outVertexVector, vector<uint16_t>& outIndexVector, vector<Material>& outMaterial, string fileName);
 	bool LoadAnimation(AnimationClip& animation, const string& clipName, string fileName);
 	void GetSkeletonHierarchy(FbxNode * pNode, int curIndex, int parentIndex);
 	void GetControlPoints(FbxNode * pFbxRootNode);
@@ -64,7 +64,7 @@ public:
 	void ExportAnimation(const AnimationClip& animation, string fileName, const string& clipName);
 	void ExportFBX(vector<SkinnedVertex>& outVertexVector, vector<uint16_t>& outIndexVector, SkinnedData& outSkinnedData, const string& clipName, vector<Material>& outMaterial, string fileName);
 	void ExportFBX(vector<Vertex>& outVertexVector, vector<uint16_t>& outIndexVector, vector<Material>& outMaterial, string fileName);
-	
+
 private:
 	unordered_map<unsigned int, CtrlPoint*> mControlPoints;
 	unordered_map<string, AnimationClip> mAnimations;

@@ -377,9 +377,9 @@ bool FbxLoader::LoadTXT(vector<Vertex>& outVertexVector, vector<uint16_t>& outIn
 
 	uint32_t vertexSize = 0;
 	uint32_t indexSize = 0;
-	uint32_t boneSize = 0;
-	uint32_t keyframeSize = 0;
 	uint32_t materialSize = 0;
+	//uint32_t boneSize = 0;
+	//uint32_t keyframeSize = 0;
 
 	string ignore;
 	if (fileIn)
@@ -387,8 +387,10 @@ bool FbxLoader::LoadTXT(vector<Vertex>& outVertexVector, vector<uint16_t>& outIn
 		fileIn >> ignore >> vertexSize;
 		fileIn >> ignore >> indexSize;
 		fileIn >> ignore >> materialSize;
-
-		if (vertexSize == 0 || indexSize == 0 || boneSize == 0 || keyframeSize == 0 || materialSize == 0)
+		//fileIn >> ignore >> boneSize;
+		//fileIn >> ignore >> keyframeSize;
+		//if (vertexSize == 0 || indexSize == 0 || boneSize == 0 || keyframeSize == 0 || materialSize == 0)
+		if (vertexSize == 0 || indexSize == 0 || materialSize == 0)
 		{
 			return false;
 		}
@@ -691,7 +693,9 @@ void FbxLoader::GetOnlyAnimation(FbxScene* pFbxScene, FbxNode * pFbxChildNode, A
 			for (currJointIndex = 0; currJointIndex < mBoneName.size(); ++currJointIndex)
 			{
 				if (mBoneName[currJointIndex] == currJointName)
+				{
 					break;
+				}
 			}
 
 			// Set the Bone Animation Matrix
@@ -746,8 +750,9 @@ void FbxLoader::GetOnlyAnimation(FbxScene* pFbxScene, FbxNode * pFbxChildNode, A
 
 				// Frame does not exist
 				if (index != 0 && boneAnim.Keyframes.back() == key)
+				{
 					break;
-
+				}
 				boneAnim.Keyframes.push_back(key);
 			}
 			animation.BoneAnimations[currJointIndex] = boneAnim;
@@ -896,8 +901,10 @@ void FbxLoader::GetVerticesAndIndice(FbxMesh * pMesh, vector<SkinnedVertex> & ou
 				// Set the Bone information
 				for (int l = 0; l < CurrCtrlPoint->mBoneInfo.size(); ++l)
 				{
-					if (l >= 4)
+					if (l >= 4) 
+					{
 						break;
+					}
 
 					SkinnedVertexInfo.BoneIndices[l] = CurrCtrlPoint->mBoneInfo[l].mBoneIndices;
 
@@ -1152,7 +1159,6 @@ void FbxLoader::GetMaterialTexture(FbxSurfaceMaterial * pMaterial, Material & Ma
 		}
 	}
 }
-
 
 FbxAMatrix FbxLoader::GetGeometryTransformation(FbxNode* pNode)
 {

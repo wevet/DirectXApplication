@@ -393,7 +393,7 @@ bool DXApp::InitDirect3D()
 	m4xMsaaQuality = msQualityLevels.NumQualityLevels;
 	assert(m4xMsaaQuality > 0 && "Unexpected MSAA quality level.");
 
-#ifdef _DEBUG
+#if defined(DEBUG) || defined(_DEBUG)
 	LogAdapters();
 #endif
 

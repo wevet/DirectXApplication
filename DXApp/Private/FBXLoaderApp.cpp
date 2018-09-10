@@ -46,7 +46,7 @@ bool FBXLoaderApp::Initialize()
 	mCbvSrvDescriptorSize = md3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
 	BuildFbxGeometry();
-	//BuildFbxObjectGeometry();
+	BuildFbxObjectGeometry();
 	LoadTextures();
 	BuildRootSignature();
 	BuildShadersAndInputLayout();
@@ -344,7 +344,7 @@ void FBXLoaderApp::BuildDescriptorHeaps()
 	mPassCbvOffset = matCount * gNumFrameResources + mMatCbvOffset;
 	mSkinCbvOffset = 1 * gNumFrameResources + mPassCbvOffset;
 
-	D3D12_DESCRIPTOR_HEAP_DESC cbvHeapDesc;
+	D3D12_DESCRIPTOR_HEAP_DESC cbvHeapDesc = {};
 	cbvHeapDesc.NumDescriptors = numDescriptors;
 	cbvHeapDesc.Type  = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
 	cbvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
@@ -355,7 +355,6 @@ void FBXLoaderApp::BuildDescriptorHeaps()
 void FBXLoaderApp::BuildTextureBufferViews()
 {
 	CD3DX12_CPU_DESCRIPTOR_HANDLE hDescriptor(mCbvHeap->GetCPUDescriptorHandleForHeapStart());
-
 	auto bricksTex = mTextures["bricksTex"]->Resource;
 
 	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
@@ -367,7 +366,8 @@ void FBXLoaderApp::BuildTextureBufferViews()
 	srvDesc.Texture2D.MipLevels = bricksTex->GetDesc().MipLevels;
 	md3dDevice->CreateShaderResourceView(bricksTex.Get(), &srvDesc, hDescriptor);
 
-	vector<Microsoft::WRL::ComPtr<ID3D12Resource>> vTex;
+	vector<ComPtr<ID3D12Resource>> vTex;
+	vTex.push_back(mTextures["bricksTex"]->Resource);
 	vTex.push_back(mTextures["bricks3Tex"]->Resource);
 	vTex.push_back(mTextures["stoneTex"]->Resource);
 	vTex.push_back(mTextures["tileTex"]->Resource);
@@ -377,6 +377,11 @@ void FBXLoaderApp::BuildTextureBufferViews()
 	if (vTex.size() <= 0)
 	{
 		OutputDebugString(_T("Not found vtex"));
+	}
+	else 
+	{
+		_stprintf_s(debugStr, 512, _T("¡ ¡ vertex files: [ %d ] ¡ ¡\n"), vTex.size());
+		OutputDebugString(debugStr);
 	}
 
 	for (auto &e : vTex)
@@ -789,10 +794,8 @@ void FBXLoaderApp::BuildFbxGeometry()
 		return;
 	}
 
-	int vCount = 0, iCount = 0;
-	vCount = (int)outVertices.size();
-	iCount = (int)outIndices.size();
-
+	int vCount = (int)outVertices.size();
+	int iCount = (int)outIndices.size();
 	const UINT vbByteSize = (UINT)outVertices.size() * sizeof(SkinnedVertex);
 	const UINT ibByteSize = (UINT)outIndices.size() * sizeof(uint16_t);
 
@@ -880,10 +883,8 @@ void FBXLoaderApp::BuildFbxObjectGeometry()
 		return;
 	}
 
-	int vCount = 0, iCount = 0;
-	vCount = (int)outVertices.size();
-	iCount = (int)outIndices.size();
-
+	int vCount = (int)outVertices.size();
+	int iCount = (int)outIndices.size();
 	const UINT vbByteSize = (UINT)outVertices.size() * sizeof(Vertex);
 	const UINT ibByteSize = (UINT)outIndices.size() * sizeof(uint16_t);
 
@@ -977,11 +978,12 @@ void FBXLoaderApp::LoadTextures()
 	tileTex->Filename = L"Assets/Textures/tile.dds";
 	ThrowIfFailed(CreateDDSTextureFromFile12(md3dDevice.Get(), mCommandList.Get(), tileTex->Filename.c_str(), tileTex->Resource, tileTex->UploadHeap));
 
-	mTextures[bricksTex->Name] = move(bricksTex);
+	// ƒ|ƒCƒ“ƒ^‚ð÷“n
+	mTextures[bricksTex->Name]  = move(bricksTex);
 	mTextures[bricks3Tex->Name] = move(bricks3Tex);
-	mTextures[stoneTex->Name] = move(stoneTex);
-	mTextures[grassTex->Name] = move(grassTex);
-	mTextures[tileTex->Name] = move(tileTex);
+	mTextures[stoneTex->Name]   = move(stoneTex);
+	mTextures[grassTex->Name]   = move(grassTex);
+	mTextures[tileTex->Name]    = move(tileTex);
 
 }
 
@@ -1050,7 +1052,7 @@ void FBXLoaderApp::BuildRenderItems()
 {
 	UINT objCBIndex = 0;
 
-	auto gridRitem = make_unique<RenderItem>();
+	unique_ptr<RenderItem> gridRitem = make_unique<RenderItem>();
 	XMStoreFloat4x4(&gridRitem->World, XMMatrixScaling(2.0f, 1.0f, 10.0f));
 	XMStoreFloat4x4(&gridRitem->TexTransform, XMMatrixScaling(8.0f, 80.0f, 1.0f));
 	gridRitem->ObjCBIndex = objCBIndex++;
@@ -1063,7 +1065,7 @@ void FBXLoaderApp::BuildRenderItems()
 	mRitems[(int)RenderLayer::Opaque].push_back(gridRitem.get());
 	mAllRitems.push_back(move(gridRitem));
 
-	auto houseRitem = make_unique<RenderItem>();
+	unique_ptr<RenderItem> houseRitem = make_unique<RenderItem>();
 	XMStoreFloat4x4(&houseRitem->World, XMMatrixScaling(0.1f, 0.1f, 0.1f) * XMMatrixRotationRollPitchYaw(-XM_PIDIV2, 0.0f, 0.0f));
 	houseRitem->TexTransform = MathHelper::Identity4x4();
 	houseRitem->ObjCBIndex = objCBIndex++;
@@ -1083,7 +1085,7 @@ void FBXLoaderApp::BuildRenderItems()
 		SubmeshName.push_back(i + 48);
 		string MaterialName = "material_0";
 
-		auto FbxRitem = make_unique<RenderItem>();
+		unique_ptr<RenderItem> FbxRitem = make_unique<RenderItem>();
 		XMStoreFloat4x4(&FbxRitem->World, XMMatrixScaling(4.0f, 4.0f, 4.0f));
 		FbxRitem->TexTransform = MathHelper::Identity4x4();
 		FbxRitem->ObjCBIndex = objCBIndex++;
@@ -1103,7 +1105,7 @@ void FBXLoaderApp::BuildRenderItems()
 
 	for (auto& e : mRitems[(int)RenderLayer::SkinnedOpaque])
 	{
-		auto shadowedObjectRitem = make_unique<RenderItem>();
+		unique_ptr<RenderItem> shadowedObjectRitem = make_unique<RenderItem>();
 		*shadowedObjectRitem = *e;
 		shadowedObjectRitem->ObjCBIndex = objCBIndex++;
 		shadowedObjectRitem->Mat = mMaterials["shadow0"].get();

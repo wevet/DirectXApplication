@@ -171,7 +171,7 @@ private:
 
 	ComPtr<ID3D12RootSignature> mRootSignature = nullptr;
 	ComPtr<ID3D12DescriptorHeap> mCbvHeap = nullptr;
-	ComPtr<ID3D12DescriptorHeap> mSrvDescriptorHeap = nullptr;
+	//ComPtr<ID3D12DescriptorHeap> mSrvDescriptorHeap = nullptr;
 
 	unordered_map<string, unique_ptr<MeshGeometry>> mGeometries;
 	unordered_map<string, unique_ptr<Material>> mMaterials;
@@ -209,4 +209,5 @@ private:
 	Light mMainLight;
 	Camera mCamera;
 	POINT mLastMousePos;
+	TCHAR debugStr[512];
 };
