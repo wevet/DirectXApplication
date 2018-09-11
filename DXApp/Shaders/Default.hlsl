@@ -74,9 +74,9 @@ float4 PS(VertexOut pin) : SV_Target
 {
 	float4 diffuseAlbedo = gDiffuseMap.Sample(gsamAnisotropicWrap, pin.TexC) * gDiffuseAlbedo;
 
-//#ifdef SKINNED
-//	diffuseAlbedo = float4(pin.BoneIndices.x, pin.BoneIndices.y, pin.BoneIndices.z, pin.BoneIndices.w);
-//#endif
+#ifdef SKINNED
+	//diffuseAlbedo = float4(pin.BoneIndices.x, pin.BoneIndices.y, pin.BoneIndices.z, pin.BoneIndices.w);
+#endif
 	// interpolating normal can unnormalize it, so renormalize it.
 	pin.NormalW = normalize(pin.NormalW);
 
@@ -89,8 +89,7 @@ float4 PS(VertexOut pin) : SV_Target
 	const float shininess = 1.0f - gRoughness;
 	Material mat = { diffuseAlbedo, gFresnelR0, shininess };
 	float3 shadowFactor = 1.0f;
-	float4 directLight = ComputeLighting(gLights, mat, pin.PosW,
-		pin.NormalW, toEyeW, shadowFactor);
+	float4 directLight = ComputeLighting(gLights, mat, pin.PosW, pin.NormalW, toEyeW, shadowFactor);
 
 	float4 litColor = ambient + directLight;
 

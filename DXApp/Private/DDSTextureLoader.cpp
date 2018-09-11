@@ -2160,11 +2160,11 @@ HRESULT DirectX::CreateDDSTextureFromFile12(_In_ ID3D12Device* device,
 		return E_INVALIDARG;
 	}
 
-	/* DirectX::CreateDDSTextureFromFile12(md3dDevice.Get(), 
-		mCommandList.Get(), 
-		stoneTex->Filename.c_str(),	
-		stoneTex->Resource, 
-		stoneTex->UploadHeap) */
+	/*DirectX::CreateDDSTextureFromFile12(md3dDevice.Get(),
+	mCommandList.Get(),
+	stoneTex->Filename.c_str(),
+	stoneTex->Resource,
+	stoneTex->UploadHeap) */
 	DDS_HEADER* header = nullptr;
 	uint8_t* bitData = nullptr;
 	size_t bitSize = 0;
@@ -2176,58 +2176,57 @@ HRESULT DirectX::CreateDDSTextureFromFile12(_In_ ID3D12Device* device,
 		return hr;
 	}
 
-	hr = CreateTextureFromDDS12(device, cmdList, header,
-		bitData, bitSize, maxsize, false, texture, textureUploadHeap);
+	hr = CreateTextureFromDDS12(device, cmdList, header, bitData, bitSize, maxsize, false, texture, textureUploadHeap);
 
 	if (SUCCEEDED(hr))
 	{
-		/*
-		#if !defined(NO_D3D11_DEBUG_NAME) && ( defined(_DEBUG) || defined(PROFILE) )
-		if (texture != 0 || textureView != 0)
-		{
-		CHAR strFileA[MAX_PATH];
-		int result = WideCharToMultiByte(CP_ACP,
-		WC_NO_BEST_FIT_CHARS,
-		fileName,
-		-1,
-		strFileA,
-		MAX_PATH,
-		nullptr,
-		FALSE
-		);
-		if (result > 0)
-		{
-		const CHAR* pstrName = strrchr(strFileA, '\\');
-		if (!pstrName)
-		{
-		pstrName = strFileA;
-		}
-		else
-		{
-		pstrName++;
-		}
-
-		if (texture != 0 && *texture != 0)
-		{
-		(*texture)->SetPrivateData(WKPDID_D3DDebugObjectName,
-		static_cast<UINT>(strnlen_s(pstrName, MAX_PATH)),
-		pstrName
-		);
-		}
-
-		if (textureView != 0 && *textureView != 0)
-		{
-		(*textureView)->SetPrivateData(WKPDID_D3DDebugObjectName,
-		static_cast<UINT>(strnlen_s(pstrName, MAX_PATH)),
-		pstrName
-		);
-		}
-		}
-		}
-		#endif
-		*/
+//#if !defined(NO_D3D11_DEBUG_NAME) && ( defined(_DEBUG) || defined(PROFILE) )
+//		if (texture != 0 || textureView != 0)
+//		{
+//			CHAR strFileA[MAX_PATH];
+//			int result = WideCharToMultiByte(CP_ACP,
+//				WC_NO_BEST_FIT_CHARS,
+//				fileName,
+//				-1,
+//				strFileA,
+//				MAX_PATH,
+//				nullptr,
+//				FALSE
+//			);
+//			if (result > 0)
+//			{
+//				const CHAR* pstrName = strrchr(strFileA, '\\');
+//				if (!pstrName)
+//				{
+//					pstrName = strFileA;
+//				}
+//				else
+//				{
+//					pstrName++;
+//				}
+//
+//				if (texture != 0 && *texture != 0)
+//				{
+//					(*texture)->SetPrivateData(WKPDID_D3DDebugObjectName,
+//						static_cast<UINT>(strnlen_s(pstrName, MAX_PATH)),
+//						pstrName
+//					);
+//				}
+//
+//				if (textureView != 0 && *textureView != 0)
+//				{
+//					(*textureView)->SetPrivateData(WKPDID_D3DDebugObjectName,
+//						static_cast<UINT>(strnlen_s(pstrName, MAX_PATH)),
+//						pstrName
+//					);
+//				}
+//			}
+//		}
+//#endif
 		if (alphaMode)
+		{
 			*alphaMode = GetAlphaMode(header);
+		}
 	}
 
 	return hr;

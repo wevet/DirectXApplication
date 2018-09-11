@@ -15,7 +15,6 @@ FbxLoader::~FbxLoader()
 {
 }
 
-
 HRESULT FbxLoader::LoadFBX(vector<SkinnedVertex>& outVertexVector, vector<uint16_t>& outIndexVector, SkinnedData& outSkinnedData, const string& clipName, vector<Material>& outMaterial, string fileName)
 {
 	if (LoadTXT(outVertexVector, outIndexVector, outSkinnedData, clipName, outMaterial, fileName)) 
@@ -111,7 +110,6 @@ HRESULT FbxLoader::LoadFBX(vector<SkinnedVertex>& outVertexVector, vector<uint16
 				GetMaterials(pFbxChildNode, outMaterial);
 				break;
 			}
-
 		}
 		outSkinnedData.Set(mBoneHierarchy, mBoneOffsets, mAnimations);
 	}
@@ -235,7 +233,7 @@ HRESULT FbxLoader::LoadFBX(AnimationClip & animation, const string& clipName, st
 
 			if (AttributeType == FbxNodeAttribute::eMesh)
 			{
-				GetOnlyAnimation(pFbxScene, pFbxChildNode, animation);
+				//GetOnlyAnimation(pFbxScene, pFbxChildNode, animation);
 			}
 		}
 	}
@@ -374,12 +372,9 @@ bool FbxLoader::LoadTXT(vector<Vertex>& outVertexVector, vector<uint16_t>& outIn
 {
 	fileName = fileName + ".txt";
 	ifstream fileIn(fileName);
-
-	uint32_t vertexSize = 0;
-	uint32_t indexSize = 0;
+	uint32_t vertexSize = 0, indexSize = 0;
+	uint32_t boneSize = 0, keyframeSize = 0;
 	uint32_t materialSize = 0;
-	//uint32_t boneSize = 0;
-	//uint32_t keyframeSize = 0;
 
 	string ignore;
 	if (fileIn)
@@ -387,10 +382,8 @@ bool FbxLoader::LoadTXT(vector<Vertex>& outVertexVector, vector<uint16_t>& outIn
 		fileIn >> ignore >> vertexSize;
 		fileIn >> ignore >> indexSize;
 		fileIn >> ignore >> materialSize;
-		//fileIn >> ignore >> boneSize;
-		//fileIn >> ignore >> keyframeSize;
-		//if (vertexSize == 0 || indexSize == 0 || boneSize == 0 || keyframeSize == 0 || materialSize == 0)
-		if (vertexSize == 0 || indexSize == 0 || materialSize == 0)
+		
+		if (vertexSize == 0 || indexSize == 0 || boneSize == 0 || keyframeSize == 0 || materialSize == 0)
 		{
 			return false;
 		}
@@ -548,6 +541,7 @@ void FbxLoader::GetAnimation(FbxScene* pFbxScene, FbxNode * pFbxChildNode, strin
 					boneOffset.m[i][j] = globalBindposeInverseMatrix.Get(i, j);
 				}
 			}
+
 			mBoneOffsets[currJointIndex] = boneOffset;
 
 			// Set the Bone index and weight ./ Max 4

@@ -20660,7 +20660,7 @@ Indices
 5296 4791 4793
 5297 4794 4796
 Material 
-Name C:\Users\z.shunji.s.nagasawa\Desktop\DirectX_Game\DirectXApplication\DXApp\Assets\FBX\houseA.jpg
+Name C:\Users\fenri\Desktop\DirectX_Game\DirectXApplication\DXApp\Assets\FBX\houseA.jpg
 Ambient 0 0 0
 Diffuse 0.8 0.8 0.8 1
 Fresnel 0.01 0.01 0.01

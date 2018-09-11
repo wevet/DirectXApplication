@@ -380,7 +380,7 @@ void FBXLoaderApp::BuildTextureBufferViews()
 	}
 	else 
 	{
-		_stprintf_s(debugStr, 512, _T("Å°Å†Å° vertex files: [ %d ] Å°Å†Å°\n"), vTex.size());
+		_stprintf_s(debugStr, 512, _T("\n Å°Å†Å° vertex files: [ %d ] Å°Å†Å°\n"), vTex.size());
 		OutputDebugString(debugStr);
 	}
 
@@ -704,7 +704,6 @@ void FBXLoaderApp::BuildShapeGeometry()
 
 	auto totalVertexCount = box.Vertices.size() + grid.Vertices.size() + sphere.Vertices.size() + cylinder.Vertices.size();
 
-	printf("BuildShapeGeometry");
 	vector<Vertex> vertices(totalVertexCount);
 
 	UINT k = 0;
@@ -778,7 +777,7 @@ void FBXLoaderApp::BuildFbxGeometry()
 	vector<uint16_t> outIndices;
 	vector<Material> outMaterial;
 	string FileName = "Assets/FBX/";
-	string clipName = "Stabbing";
+	string clipName = "Sample";
 
 	fbx.LoadFBX(outVertices, outIndices, mSkinnedInfo, clipName, outMaterial, FileName);
 
@@ -845,6 +844,10 @@ void FBXLoaderApp::BuildFbxGeometry()
 		unique_ptr<Texture> Tex = make_unique<Texture>();
 		Tex->Name = TextureName;
 		Tex->Filename.assign(outMaterial[i].Name.begin(), outMaterial[i].Name.end());
+
+		_stprintf_s(debugStr, 512, _T("\n Å°Å†Å° load texture file name: [ %s ] Å°Å†Å°\n"), Tex->Filename.c_str());
+		OutputDebugString(debugStr);
+
 		ThrowIfFailed(CreateImageDataTextureFromFile(md3dDevice.Get(), mCommandList.Get(), Tex->Filename.c_str(), Tex->Resource, Tex->UploadHeap));
 		mTextures[Tex->Name] = move(Tex);
 
@@ -861,6 +864,10 @@ void FBXLoaderApp::BuildFbxGeometry()
 		Mat->Roughness = outMaterial[i].Roughness;
 		Mat->Specular = outMaterial[i].Specular;
 		Mat->Emissive = outMaterial[i].Emissive;
+
+		_stprintf_s(debugStr, 512, _T("\n Å°Å†Å° load material file name: [ %s ] Å°Å†Å°\n"), MaterialName);
+		OutputDebugString(debugStr);
+
 		mMaterials[MaterialName] = move(Mat);
 	}
 }
